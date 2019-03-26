@@ -31,24 +31,24 @@ You need the .NET Core 2.2 SDK (Download: https://dotnet.microsoft.com/download)
   
 # Images
 
-  <img src=".//images/1.PNG" width="700">
+  <img src=".//images/1.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/2.PNG" width="700">
+  <img src=".//images/2.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/3.PNG" width="700">
+  <img src=".//images/3.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/4.PNG" width="700">
+  <img src=".//images/4.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/5.PNG" width="700">
+  <img src=".//images/5.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/6.PNG" width="700">
+  <img src=".//images/6.PNG" width="850">
