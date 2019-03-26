@@ -1,0 +1,87 @@
+﻿@inject Reddnet.Data.ApplicationData.ApplicationDbContext applicationContext
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="author" content="Moritz Müller" />
+    <meta name="description" content="Reddnet" />
+
+    <link rel="icon" href="data:image;base64,@System.Convert.ToBase64String(@applicationContext.Settings.FirstOrDefault(s => s.Id == 1).Logo)" />
+
+    <link rel="stylesheet" href="~/css/Site.css" />
+    <link rel="stylesheet" href="~/css/Comment.css" />
+    <link rel="stylesheet" href="~/css/Post.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- include libraries(jQuery, bootstrap, fontawesome) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+
+    <title>@applicationContext.Settings.FirstOrDefault(s => s.Id == 1).Title</title>
+</head>
+
+    <body>
+        <header>
+            <div class="topbar">
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="data:image;base64,@System.Convert.ToBase64String(@applicationContext.Settings.FirstOrDefault(s => s.Id == 1).Logo)" alt="LOGO" />
+                    </a>
+                </div>
+
+                <div class="branding">
+                    <h1><a asp-controller="Home" asp-action="Index">@applicationContext.Settings.FirstOrDefault(s => s.Id == 1).Title</a></h1>
+                </div>
+
+                <div class="searchbar">
+                    <form asp-controller="Home" asp-action="Search" method="post">
+                        <img src="~/images/Search.jpg" height="22" width="22" />
+                        <input type="text" name="searchString" />
+                    </form>
+                </div>
+
+                <div class="login">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="clickLink" asp-controller="Account" asp-action="Profil" asp-route-id="@User.Identity.Name">@(char.ToUpper(User.Identity.Name[0]) + User.Identity.Name.Substring(1))</a>
+                        <a class="clickLink" asp-controller="Account" asp-action="LogOutAsync">Logout</a>
+                    }
+                    else
+                    {
+                        <a class="clickLink" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="buttonLink" asp-controller="Account" asp-action="Register">Register</a>
+                    }
+                </div>
+
+                <div class="navigator">
+                    <nav>
+                        <ul>
+                            @if (this.User.IsInRole("Administrator"))
+                            {
+                                <li><a class="clickLink" asp-controller="Home" asp-action="AdminPanel">Admin Panel</a></li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-container">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <div class="footer-container">
+                <a href="https://github.com/cetoxx/Reddnet">Reddnet</a>
+            </div>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="~/js/Main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Reddnet.Data.AccountData.ApplicationUser>
+
+@{
+}
+
+<div class="left-container">
+    <h3><strong>Admin Panel</strong></h3>
+
+    <hr />
+
+    <a class="clickLink" asp-controller="Home" asp-action="AdminPanel">General</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Settings">Settings</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Users">Users</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Blogs">Subreddits</a>
+</div>
+
+<div class="container">
+    <h1>Admin Panel › <strong>Users</strong></h1>
+
+    <table>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @if (User.Identity.Name != item.UserName)
+            {
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>
+                    <a class="clickLink" style="color: red" asp-controller="Home" asp-action="SetAdmin" asp-route-id="@item.Id">Give Admin</a>
+                </td>
+                <td>
+                    <a class="clickLink" style="color: red" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
+                </td>
+            }
+        </tr>
+        }
+    </table>
+</div>
+

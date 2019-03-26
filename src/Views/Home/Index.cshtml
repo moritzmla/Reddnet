@@ -1,0 +1,55 @@
+﻿@model Reddnet.Models.ViewModels.SearchViewModel
+
+@{
+    var topToday = Model.Posts.OrderByDescending(x => x.Views).Take(3).Where(x => x.UploadDate.Date == DateTime.Today);
+}
+
+<div class="row-c">
+    <ul>
+        @if (!Model.Posts.Any())
+        {
+            <div class="container" style="margin-top: 26px">
+                <h1>No Posts found!</h1>
+                <a class="clickLink" asp-controller="Post" asp-action="New" asp-route-id="1">New Post</a>
+            </div>
+        }
+        else
+        {
+            <h1 class="bubble">Top 3 Posts Today</h1>
+            @foreach (var post in topToday)
+            {
+                <li>
+                    @{ await Html.RenderPartialAsync("_PostPartial", post); }
+                </li>
+            }
+
+            <h1 class="bubble">Last Posts</h1>
+            @foreach (var post in Model.Posts.Take(20))
+            {
+                <li>
+                    @{ 
+                        if (!topToday.Contains(post))
+                        {
+                            await Html.RenderPartialAsync("_PostPartial", post);
+                        }
+                     }
+                </li>
+            }
+        }
+    </ul>
+
+    <div class="container" style="margin-left: 10px; width: 200px; height: 200px; margin-top: 26px">
+        <h1 class="bubble">Trending Communities</h1>
+
+        @foreach (var blog in Model.Blogs.OrderByDescending(x => x.Posts.Count).Take(5))
+        {
+            <a class="clickLink" asp-controller="Blog" asp-action="View" asp-route-id="@blog.BlogId">r/@blog.Name - @blog.Posts.Count Posts</a>
+        }
+    </div>
+</div>
+
+
+
+
+
+

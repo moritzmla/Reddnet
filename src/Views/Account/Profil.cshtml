@@ -1,0 +1,44 @@
+﻿@model Reddnet.Data.AccountData.ApplicationUser
+
+@{
+}
+
+<div class="column-container">
+    @if (!Model.Posts.Any())
+    {
+        <div class="container">
+            <h1>No Posts found!</h1>
+            <a class="clickLink" asp-controller="Blog" asp-action="NewPost">New Post</a>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model.Posts)
+        {
+            <li>
+                @await Html.PartialAsync("_PostPartial", item)
+            </li>
+        }
+    }
+
+    <div class="row-c">
+        <div style="margin-right: 20px">
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" height="110" width="110" />
+        </div>
+
+        <div style="margin-bottom: 10px; padding-top: 10px" class="row-container">
+            <div style="margin-left: 20px">
+                <h1 style="margin-bottom: 30px"><strong>@Model.UserName</strong></h1>
+                <h3 style="color: gray; font-size: 14px">Posts: <strong>@Model.Posts.Count()</strong></h3>
+                <h3 style="color: gray; font-size: 14px">Comments: <strong>@Model.Comments.Count()</strong></h3>
+            </div>
+
+            @if (User.Identity.Name == Model.UserName)
+            {
+                <div style="margin-left: 30px" class="column-container">
+                    <a class="clickLink" asp-controller="Account" asp-action="Settings" asp-route-id="@Model.UserName">Settings</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

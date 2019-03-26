@@ -1,0 +1,23 @@
+﻿@model Reddnet.Models.ViewModels.ProfilViewModel
+
+@{
+
+}
+
+<div class="container">
+    <form asp-controller="Account" asp-action="Settings" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label asp-for="ProfilPicture"></label>
+            <label for="imageInput">
+                <img id="imageDisplay" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.CurrentUserPicture)" alt="COVER" height="200" width="200" />
+                <input id="imageInput" asp-for="ProfilPicture" />
+            </label>
+        </div>
+
+        <input class="clickLink" type="submit" value="Save" />
+
+        <div class="errors" asp-validation-summary="All"></div>
+    </form>
+</div>
+

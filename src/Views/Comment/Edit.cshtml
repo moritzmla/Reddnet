@@ -1,0 +1,18 @@
+﻿@model Reddnet.Models.DataModels.CommentDataModel
+
+@{
+}
+
+<div class="container">
+    <form asp-controller="Comment" asp-action="Edit" method="post">
+
+        <div class="form-group">
+            <label asp-for="Content"></label>
+            <textarea style="height: 100px" asp-for="Content">@Model.Content</textarea>
+        </div>
+
+        <input class="clickLink" type="submit" value="Save" />
+
+        <div class="errors" asp-validation-summary="All"></div>
+    </form>
+</div>
