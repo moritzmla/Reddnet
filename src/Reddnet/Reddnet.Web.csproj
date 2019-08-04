@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlogCoreEngine.Core\Reddnet.Core.csproj" />
-    <ProjectReference Include="..\BlogCoreEngine.DataAccess\Reddnet.DataAccess.csproj" />
+    <ProjectReference Include="..\Reddnet.Core\Reddnet.Core.csproj" />
+    <ProjectReference Include="..\Reddnet.DataAccess\Reddnet.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

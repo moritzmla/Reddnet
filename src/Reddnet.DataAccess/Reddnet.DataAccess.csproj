@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlogCoreEngine.Core\Reddnet.Core.csproj" />
+    <ProjectReference Include="..\Reddnet.Core\Reddnet.Core.csproj" />
   </ItemGroup>
 
 </Project>
