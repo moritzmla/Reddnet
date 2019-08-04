@@ -1,0 +1,73 @@
+﻿
+
+/* Post */
+
+li {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.BlogLi {
+    border: 1px solid rgb(237, 239, 241);
+    border-radius: 2.5px;
+    background-color: white;
+}
+
+.BlogLi .BlogMain {
+    display: flex;
+    flex-direction: row;
+}
+
+.BlogLi .BlogCover {
+    border-radius: 1px;
+    margin: 5px;
+}
+
+.BlogLi .BlogLi:hover {
+    transition: 0.2s all;
+    box-shadow: 0 0 10px rgba(0,0,0,0.22);
+}
+
+.BlogLi .headline {
+    display: flex;
+    flex-direction: row;
+}
+
+.BlogLi .headline img {
+    border-radius: 50px;
+    margin-left: 8px;
+}
+
+.BlogLi a:hover {
+    text-decoration: underline;
+}
+
+.BlogLi .content {
+}
+
+.BlogLi .preview {
+    margin-top: 10px;
+}
+
+.BlogLi .underline {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+.BlogLi .underline a {
+    margin-right: 15px;
+}
+
+.BlogLi .underline h1 {
+    margin-right: 15px;
+}
+
+.BlogLi .BlogCover img {
+    border-radius: 3px;
+    max-height: 73px;
+}

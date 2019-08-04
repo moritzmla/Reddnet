@@ -1,0 +1,82 @@
+﻿@model BlogCoreEngine.Core.Entities.PostDataModel
+
+<div class="BlogLi">
+    <div class="BlogMain">
+        <div class="BlogCover">
+            @if (string.IsNullOrWhiteSpace(Model.Link))
+            {
+                <a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Cover)" />
+                </a>
+            }
+            else
+            {
+                <a href="@Model.Link">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Cover)" />
+                </a>
+            }
+        </div>
+
+        <div class="BlogContent" style="margin: 5px;">
+            <div class="row-c">
+                <h2><a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id"><strong>@Model.Title</strong></a></h2>
+            </div>
+
+            <div class="headline">
+                <a style="font-size: 13px" asp-controller="Blog" asp-action="View" asp-route-id="@Model.BlogId">r/@Model.Blog.Name</a>
+                <p style="margin-left: 6px; font-size: 13px">·</p>
+                <a style="color: gray; margin-left: 6px; font-size: 13px" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.Author.Name">Posted by u/@Model.Author.Name</a>
+                <p style="margin-left: 6px; font-size: 13px">·</p>
+                <h2 style="color: gray; margin-left: 6px; font-size: 13px">@Model.Created.ToString("dd.MM.yyyy")</h2>
+
+                @if (Model.Archieved)
+                {
+                    <i class="far fa-file-archive" style="margin-top: 1.8px; margin-left: 8px;"></i>
+                }
+
+                @if (Model.Pinned)
+                {
+                    <i class="fas fa-paperclip" style="margin-top: 1.8px; margin-left: 8px;"></i>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.Link))
+                {
+                    @if (Model.Link.Length > 30)
+                    {
+                        <a class="clickLink" style="margin-left: 10px; margin-top: 1px; font-size: 11px;" href="@Model.Link">@Model.Link.Substring(0, 30)...</a>
+                    }
+                    else
+                    {
+                        <a class="clickLink" style="margin-left: 10px; margin-top: 1px; font-size: 11px;" href="@Model.Link">@Model.Link</a>
+                    }
+                }
+            </div>
+
+            <div class="underline">
+                <h1 style="color: gray;">@Model.Views Views</h1>
+                <h1><strong>@Model.Comments.Count()</strong> Comments</h1>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.Identity.GetAuthorId() == Model.AuthorId || User.IsInRole("Administrator"))
+                    {
+                        <a class="clickLink" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="clickLink" style="color: red" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                    }
+
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        @if (Model.Pinned)
+                        {
+                            <a class="clickLink" style="color: darkkhaki" asp-controller="Post" asp-action="Pin" asp-route-id="@Model.Id">Unpin</a>
+                        }
+                        else
+                        {
+                            <a class="clickLink" style="color: darkkhaki" asp-controller="Post" asp-action="Pin" asp-route-id="@Model.Id">Pin</a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

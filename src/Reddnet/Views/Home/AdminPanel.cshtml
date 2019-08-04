@@ -1,0 +1,17 @@
+﻿@model BlogCoreEngine.ViewModels.SettingViewModel
+
+<div class="left-container container" style="height: 200px;">
+    <h3><strong>Admin Panel</strong></h3>
+
+    <hr />
+
+    <a class="clickLink" asp-controller="Home" asp-action="AdminPanel">General</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Settings">Settings</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Users">Users</a>
+    <a class="clickLink" asp-controller="Home" asp-action="Blogs">Blogs</a>
+</div>
+
+<div class="container admin-container">
+    <h1 style="margin-bottom: 30px;">Welcome, <strong>@User.Identity.GetAuthorName()</strong></h1>
+</div>
+
