@@ -10,6 +10,7 @@ using BlogCoreEngine.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Reddnet.Web.Extensions;
 
 namespace BlogCoreEngine.Controllers
 {
@@ -58,7 +59,7 @@ namespace BlogCoreEngine.Controllers
         {
             if(string.IsNullOrWhiteSpace(searchString))
             {
-                return RedirectToAction("Index", "Home");
+                return this.RedirectToAsync<HomeController>(x => x.Index());
             }
 
             var posts = await this.postRepository.GetAll();
@@ -121,14 +122,14 @@ namespace BlogCoreEngine.Controllers
         public async Task<IActionResult> SetAdmin(string id)
         {
             await this.userManager.AddToRoleAsync(await userManager.FindByIdAsync(id), "Administrator");
-            return RedirectToAction("Users");
+            return this.RedirectTo<HomeController>(x => x.Users());
         }
 
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             await this.userManager.DeleteAsync(await userManager.FindByIdAsync(id));
-            return RedirectToAction("Users");
+            return this.RedirectTo<HomeController>(x => x.Users());
         }
 
         #endregion
@@ -161,7 +162,6 @@ namespace BlogCoreEngine.Controllers
             }
 
             ViewBag.LogoToBytes = await this.blogOptionService.GetLogo();
-
             return View(settingViewModel);
         }
 

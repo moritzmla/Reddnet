@@ -52,3 +52,5 @@ You need the .NET Core 2.2 SDK (Download: https://dotnet.microsoft.com/download)
   <hr />
   
   <img src=".//image/6.PNG" width="850">
+
+  <hr />

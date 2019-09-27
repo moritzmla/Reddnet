@@ -7,6 +7,7 @@ using BlogCoreEngine.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Reddnet.Web.Extensions;
 
 namespace BlogCoreEngine.Controllers
 {
@@ -61,7 +62,7 @@ namespace BlogCoreEngine.Controllers
                     Modified = DateTime.Now
                 });
 
-                return RedirectToAction("View", "Blog", new { id = newBlog.Id });
+                return this.RedirectToAsync<BlogController>(x => x.View(newBlog.Id));
             }
             return View(blog);
         }
@@ -73,13 +74,13 @@ namespace BlogCoreEngine.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var targetBlog = await this.blogRepository.GetById(id);
+            var blog = await this.blogRepository.GetById(id);
 
             return View(new BlogViewModel
             {
-                Name = targetBlog.Name,
-                Cover = targetBlog.Cover,
-                Description = targetBlog.Description
+                Name = blog.Name,
+                Cover = blog.Cover,
+                Description = blog.Description
             });
         }
 
@@ -99,8 +100,7 @@ namespace BlogCoreEngine.Controllers
                 }
 
                 await this.blogRepository.Update(targetBlog);
-
-                return RedirectToAction("View", "Blog", new { id });
+                return this.RedirectToAsync<BlogController>(x => x.View(targetBlog.Id));
             }
 
             blog.Cover = targetBlog.Cover;
@@ -116,7 +116,7 @@ namespace BlogCoreEngine.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             await this.blogRepository.Remove(id);
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAsync<HomeController>(x => x.Index());
         }
 
         #endregion

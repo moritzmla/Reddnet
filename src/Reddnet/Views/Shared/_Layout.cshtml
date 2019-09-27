@@ -54,7 +54,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="clickLink" asp-controller="Account" asp-action="Profile" asp-route-id="@User.Identity.GetAuthorName()">@User.Identity.GetAuthorName()</a>
-                        <a class="clickLink" asp-controller="Account" asp-action="LogOutAsync">Logout</a>
+                        <a class="clickLink" asp-controller="Account" asp-action="LogOut">Logout</a>
                     }
                     else
                     {

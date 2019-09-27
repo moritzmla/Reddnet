@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Reddnet.Web.Extensions;
 
 namespace BlogCoreEngine.Controllers
 {
@@ -37,8 +38,7 @@ namespace BlogCoreEngine.Controllers
             post.Pinned = !post.Pinned;
 
             await this.postRepository.Update(post);
-
-            return RedirectToAction("View", "Blog", new { id = post.BlogId });
+            return this.RedirectToAsync<BlogController>(x => x.View(post.BlogId.Value));
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace BlogCoreEngine.Controllers
 
             if (!(User.Identity.GetAuthorId() == post.AuthorId || this.User.IsInRole("Administrator")))
             {
-                return RedirectToAction("NoAccess", "Home");
+                return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
 
             return View(new PostViewModel
@@ -103,7 +103,7 @@ namespace BlogCoreEngine.Controllers
 
                 await this.postRepository.Update(post);
 
-                return RedirectToAction("View", "Blog", new { id = post.BlogId });
+                return this.RedirectToAsync<BlogController>(x => x.View(post.BlogId.Value));
             }
 
             postViewModel.Cover = post.Cover;
@@ -150,7 +150,7 @@ namespace BlogCoreEngine.Controllers
                     Content = post.Text
                 });
 
-                return RedirectToAction("Details", "Post", new { id = newPost.Id });
+                return this.RedirectToAsync<PostController>(x => x.Details(newPost.Id));
             }
 
             return View(post);
@@ -167,22 +167,16 @@ namespace BlogCoreEngine.Controllers
                 AuthorId = User.Identity.GetAuthorId()
             };
 
-            HttpWebRequest request = WebRequest.Create(WebsiteUrl) as HttpWebRequest;
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            var request = WebRequest.Create(WebsiteUrl) as HttpWebRequest;
+            var response = request.GetResponse() as HttpWebResponse;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = StreamReader.Null;
+                var receiveStream = response.GetResponseStream();
+                var readStream = StreamReader.Null;
 
-                if (response.CharacterSet == null)
-                {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
+                readStream = response.CharacterSet == null ? new StreamReader(receiveStream) : 
+                    new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
                 postDataModel.Content = readStream.ReadToEnd();
 
@@ -191,8 +185,7 @@ namespace BlogCoreEngine.Controllers
             }
 
             await this.postRepository.Add(postDataModel);
-
-            return RedirectToAction("View", "Blog", new { id });
+            return this.RedirectToAsync<BlogController>(x => x.View(id));
         }
 
         #endregion
@@ -206,14 +199,13 @@ namespace BlogCoreEngine.Controllers
 
             if (!((User.Identity.GetAuthorId() == post.AuthorId) || this.User.IsInRole("Administrator")))
             {
-                return RedirectToAction("NoAccess", "Home");
+                return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
 
             post.Archieved = !post.Archieved;
 
             await this.postRepository.Update(post);
-
-            return RedirectToAction("Details", "Post", new { id });
+            return this.RedirectToAsync<PostController>(x => x.Details(id));
         }
 
         #endregion
@@ -227,12 +219,11 @@ namespace BlogCoreEngine.Controllers
 
             if (!((User.Identity.GetAuthorId() == post.AuthorId) || this.User.IsInRole("Administrator")))
             {
-                return RedirectToAction("NoAccess", "Home");
+                return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
 
             await this.postRepository.Remove(id);
-
-            return RedirectToAction("View", "Blog", new { id = post.BlogId });
+            return this.RedirectToAsync<BlogController>(x => x.View(post.BlogId.Value));
         }
 
         #endregion
