@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.DataAccess.Data;
+﻿using BlogCoreEngine.DataAccess.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace BlogCoreEngine
 {

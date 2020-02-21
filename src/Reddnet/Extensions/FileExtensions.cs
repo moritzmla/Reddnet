@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlogCoreEngine.Web.Extensions
 {
@@ -16,6 +12,6 @@ namespace BlogCoreEngine.Web.Extensions
                 formFile.CopyTo(memoryStream);
                 return memoryStream.ToArray();
             }
-        } 
+        }
     }
 }

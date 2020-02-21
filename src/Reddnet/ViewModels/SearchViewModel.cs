@@ -1,9 +1,5 @@
 ﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.DataAccess.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlogCoreEngine.ViewModels
 {

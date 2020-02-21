@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using BlogCoreEngine.Core.Entities;
+﻿using BlogCoreEngine.Core.Entities;
 using BlogCoreEngine.Core.Interfaces;
 using BlogCoreEngine.DataAccess.Data;
 using BlogCoreEngine.DataAccess.Extensions;
@@ -14,6 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Reddnet.Web.Extensions;
+using System;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BlogCoreEngine.Controllers
 {
@@ -129,7 +129,8 @@ namespace BlogCoreEngine.Controllers
                 if (formFile != null)
                 {
                     post.Cover = formFile.ToByteArray();
-                } else
+                }
+                else
                 {
                     post.Cover = System.IO.File.ReadAllBytes(".//wwwroot//images//Default.png");
                 }
@@ -175,7 +176,7 @@ namespace BlogCoreEngine.Controllers
                 var receiveStream = response.GetResponseStream();
                 var readStream = StreamReader.Null;
 
-                readStream = response.CharacterSet == null ? new StreamReader(receiveStream) : 
+                readStream = response.CharacterSet == null ? new StreamReader(receiveStream) :
                     new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
                 postDataModel.Content = readStream.ReadToEnd();

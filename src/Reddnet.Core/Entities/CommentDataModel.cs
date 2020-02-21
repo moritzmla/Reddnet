@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BlogCoreEngine.Core.Entities
 {
@@ -24,13 +22,15 @@ namespace BlogCoreEngine.Core.Entities
         public string Content { get; set; }
 
         public Guid? AuthorId { get; set; }
-        public Author Author {
+        public Author Author
+        {
             get => this.LazyLoader.Load(this, ref _author);
             set => _author = value;
         }
 
         public Guid? PostId { get; set; }
-        public PostDataModel Post {
+        public PostDataModel Post
+        {
             get => this.LazyLoader.Load(this, ref _post);
             set => _post = value;
         }

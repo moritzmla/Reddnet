@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using BlogCoreEngine.Core.Entities;
+﻿using BlogCoreEngine.Core.Entities;
 using BlogCoreEngine.Core.Interfaces;
 using BlogCoreEngine.DataAccess.Data;
 using BlogCoreEngine.ViewModels;
@@ -11,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Reddnet.Web.Extensions;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlogCoreEngine.Controllers
 {
@@ -24,7 +22,7 @@ namespace BlogCoreEngine.Controllers
         private readonly UserManager<ApplicationUser> userManager;
 
         public HomeController(
-            IAsyncRepository<BlogDataModel> blogRepository, 
+            IAsyncRepository<BlogDataModel> blogRepository,
             IAsyncRepository<PostDataModel> postRepository,
             IAsyncRepository<Author> authorRepository,
             IBlogOptionService blogOptionService,
@@ -57,7 +55,7 @@ namespace BlogCoreEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string searchString)
         {
-            if(string.IsNullOrWhiteSpace(searchString))
+            if (string.IsNullOrWhiteSpace(searchString))
             {
                 return this.RedirectToAsync<HomeController>(x => x.Index());
             }
@@ -153,7 +151,7 @@ namespace BlogCoreEngine.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(!(settingViewModel.Logo == null || settingViewModel.Logo.Length <= 0))
+                if (!(settingViewModel.Logo == null || settingViewModel.Logo.Length <= 0))
                 {
                     await this.blogOptionService.SetLogo(settingViewModel.Logo.ToByteArray());
                 }

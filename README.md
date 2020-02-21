@@ -1,8 +1,8 @@
 # Reddnet
-A simple open source mini Reddit written in .NET Core 2.2
+A simple open source mini Reddit written in .NET Core 3.1
 
 # Setup to run it on you Computer
-You need the .NET Core 2.2 SDK (Download: https://dotnet.microsoft.com/download) and the Microsoft Sql Server (Download: https://www.microsoft.com/en-au/sql-server/sql-server-downloads *Free Developer Version)
+You need the .NET Core 3.1 SDK (Download: https://dotnet.microsoft.com/download) and the Microsoft Sql Server (Download: https://www.microsoft.com/en-au/sql-server/sql-server-downloads *Free Developer Version)
 
 # Important
 - Make your own Account

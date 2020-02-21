@@ -1,9 +1,6 @@
-﻿using BlogCoreEngine.Core.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
 
 namespace BlogCoreEngine.DataAccess.Extensions
 {

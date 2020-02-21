@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using BlogCoreEngine.Core.Entities;
+﻿using BlogCoreEngine.Core.Entities;
 using BlogCoreEngine.Core.Interfaces;
 using BlogCoreEngine.Web.Extensions;
 using BlogCoreEngine.Web.ViewModels;
@@ -8,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Reddnet.Web.Extensions;
+using System;
+using System.Threading.Tasks;
 
 namespace BlogCoreEngine.Controllers
 {

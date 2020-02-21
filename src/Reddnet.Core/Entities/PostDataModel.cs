@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BlogCoreEngine.Core.Entities
 {
@@ -42,18 +41,21 @@ namespace BlogCoreEngine.Core.Entities
         public bool Pinned { get; set; }
 
         public Guid? BlogId { get; set; }
-        public BlogDataModel Blog {
+        public BlogDataModel Blog
+        {
             get => this.LazyLoader.Load(this, ref _blog);
             set => _blog = value;
         }
 
         public Guid? AuthorId { get; set; }
-        public Author Author {
+        public Author Author
+        {
             get => this.LazyLoader.Load(this, ref _author);
             set => _author = value;
         }
 
-        public ICollection<CommentDataModel> Comments {
+        public ICollection<CommentDataModel> Comments
+        {
             get => this.LazyLoader.Load(this, ref _comments);
             set => _comments = value;
         }
