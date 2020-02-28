@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.ViewModels.SettingViewModel
+﻿@model Reddnet.ViewModels.SettingViewModel
 
 <div class="left-container container" style="height: 200px;">
     <h3><strong>Admin Panel</strong></h3>
@@ -12,6 +12,6 @@
 </div>
 
 <div class="container admin-container">
-    <h1 style="margin-bottom: 30px;">Welcome, <strong>@User.Identity.GetAuthorName()</strong></h1>
+    <h1 style="margin-bottom: 30px;">Welcome, <strong>@User.Identity.GetAuthorEntityName()</strong></h1>
 </div>
 

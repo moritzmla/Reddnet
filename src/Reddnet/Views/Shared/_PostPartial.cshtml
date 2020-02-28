@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.Core.Entities.PostDataModel
+﻿@model Reddnet.Core.Entities.PostEntity
 
 <div class="BlogLi">
     <div class="BlogMain">
@@ -25,7 +25,7 @@
             <div class="headline">
                 <a style="font-size: 13px" asp-controller="Blog" asp-action="View" asp-route-id="@Model.BlogId">r/@Model.Blog.Name</a>
                 <p style="margin-left: 6px; font-size: 13px">·</p>
-                <a style="color: gray; margin-left: 6px; font-size: 13px" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.Author.Name">Posted by u/@Model.Author.Name</a>
+                <a style="color: gray; margin-left: 6px; font-size: 13px" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.AuthorEntity.Name">Posted by u/@Model.AuthorEntity.Name</a>
                 <p style="margin-left: 6px; font-size: 13px">·</p>
                 <h2 style="color: gray; margin-left: 6px; font-size: 13px">@Model.Created.ToString("dd.MM.yyyy")</h2>
 
@@ -58,13 +58,13 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @if (User.Identity.GetAuthorId() == Model.AuthorId || User.IsInRole("Administrator"))
+                    @if (User.Identity.GetAuthorId() == Model.AuthorId || User.IsInRole(ApplicationRoles.Administrator))
                     {
                         <a class="clickLink" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                         <a class="clickLink" style="color: red" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                     }
 
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole(ApplicationRoles.Administrator))
                     {
                         @if (Model.Pinned)
                         {

@@ -1,10 +1,10 @@
-﻿using BlogCoreEngine.DataAccess.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Reddnet.DataAccess.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.DataAccess.Extensions
+namespace Reddnet.DataAccess.Extensions
 {
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>
     {
@@ -21,7 +21,7 @@ namespace BlogCoreEngine.DataAccess.Extensions
             {
                 (principal.Identity as ClaimsIdentity).AddClaims(new[] {
                     new Claim("AuthorId", user.AuthorId.ToString()),
-                    new Claim("AuthorName", user.Author.Name)
+                    new Claim("AuthorName", user.AuthorEntity.Name)
                 });
             }
 

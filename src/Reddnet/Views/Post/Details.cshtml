@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.Core.Entities.PostDataModel
+﻿@model Reddnet.Core.Entities.PostEntity
 
 @{
 }
@@ -28,9 +28,9 @@
 
         <div style="width: 100%;">
             <h2 class="bubble" style="margin-top: 10px;">@Model.Comments.Count() Comments</h2>
-            @foreach (var commentDataModel in Model.Comments)
+            @foreach (var ReplyEntity in Model.Comments)
             {
-                @await Html.PartialAsync("_CommentPartial", commentDataModel);
+                @await Html.PartialAsync("_CommentPartial", ReplyEntity);
             }
         </div>
     </div>
@@ -50,7 +50,7 @@
             <div style="text-align: center">
                 <a class="clickLink" asp-controller="Post" asp-action="New" asp-route-id="@Model.Blog.Id">New Post</a>
 
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole(ApplicationRoles.Administrator))
                 {
                     <a style="margin-left: 10px" class="clickLink" asp-controller="Blog" asp-action="Edit" asp-route-id="@Model.Blog.Id">Edit</a>
                 }

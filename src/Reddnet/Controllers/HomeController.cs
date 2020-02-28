@@ -1,36 +1,34 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.DataAccess.Data;
-using BlogCoreEngine.ViewModels;
-using BlogCoreEngine.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Reddnet.Web.Extensions;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAcces.Extensions;
+using Reddnet.ViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Reddnet.DataAccess.Identity;
+using Reddnet.DataAcces.Identity;
 
-namespace BlogCoreEngine.Controllers
+namespace Reddnet.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAsyncRepository<BlogDataModel> blogRepository;
-        private readonly IAsyncRepository<PostDataModel> postRepository;
-        private readonly IAsyncRepository<Author> authorRepository;
-        private readonly IBlogOptionService blogOptionService;
+        private readonly IAsyncRepository<BlogEntity> blogRepository;
+        private readonly IAsyncRepository<PostEntity> postRepository;
+        private readonly IAsyncRepository<AuthorEntity> AuthorEntityRepository;
 
         private readonly UserManager<ApplicationUser> userManager;
 
         public HomeController(
-            IAsyncRepository<BlogDataModel> blogRepository,
-            IAsyncRepository<PostDataModel> postRepository,
-            IAsyncRepository<Author> authorRepository,
-            IBlogOptionService blogOptionService,
+            IAsyncRepository<BlogEntity> blogRepository,
+            IAsyncRepository<PostEntity> postRepository,
+            IAsyncRepository<AuthorEntity> AuthorEntityRepository,
             UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
-            this.blogOptionService = blogOptionService;
-            this.authorRepository = authorRepository;
+            this.AuthorEntityRepository = AuthorEntityRepository;
             this.blogRepository = blogRepository;
             this.postRepository = postRepository;
         }
@@ -62,18 +60,18 @@ namespace BlogCoreEngine.Controllers
 
             var posts = await this.postRepository.GetAll();
             var blogs = await this.blogRepository.GetAll();
-            var users = await this.authorRepository.GetAll();
+            var users = await this.AuthorEntityRepository.GetAll();
 
             var searchedPost = posts.Where(
-                x => x.Title.ToLower().Contains(searchString.ToLower()) ||
-                x.Content.ToLower().Contains(searchString.ToLower()));
+                x => x.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                x.Content.Contains(searchString, StringComparison.OrdinalIgnoreCase));
 
             var searchedBlogs = blogs.Where(
-                x => x.Name.ToLower().Contains(searchString.ToLower()) ||
-                x.Description.ToLower().Contains(searchString.ToLower()));
+                x => x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                x.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase));
 
             var searchedUsers = users.Where(
-                x => x.Name.ToLower().Contains(searchString.ToLower()));
+                x => x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase));
 
             SearchViewModel result = new SearchViewModel
             {
@@ -98,69 +96,36 @@ namespace BlogCoreEngine.Controllers
 
         #region AdminPanel
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public IActionResult AdminPanel()
         {
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public IActionResult Users()
         {
             return View(this.userManager.Users.ToList());
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Blogs()
         {
             return View(await this.blogRepository.GetAll());
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> SetAdmin(string id)
         {
-            await this.userManager.AddToRoleAsync(await userManager.FindByIdAsync(id), "Administrator");
+            await this.userManager.AddToRoleAsync(await userManager.FindByIdAsync(id), ApplicationRoles.Administrator);
             return this.RedirectTo<HomeController>(x => x.Users());
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> DeleteUser(string id)
         {
             await this.userManager.DeleteAsync(await userManager.FindByIdAsync(id));
             return this.RedirectTo<HomeController>(x => x.Users());
-        }
-
-        #endregion
-
-        #region Settings
-
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Settings()
-        {
-            SettingViewModel settingViewModel = new SettingViewModel();
-
-            settingViewModel.Title = await this.blogOptionService.GetTitle();
-            ViewBag.LogoToBytes = await this.blogOptionService.GetLogo();
-
-            return View(settingViewModel);
-        }
-
-        [Authorize(Roles = "Administrator")]
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Settings(SettingViewModel settingViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                if (!(settingViewModel.Logo == null || settingViewModel.Logo.Length <= 0))
-                {
-                    await this.blogOptionService.SetLogo(settingViewModel.Logo.ToByteArray());
-                }
-
-                await this.blogOptionService.SetTitle(settingViewModel.Title);
-            }
-
-            ViewBag.LogoToBytes = await this.blogOptionService.GetLogo();
-            return View(settingViewModel);
         }
 
         #endregion

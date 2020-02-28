@@ -1,17 +1,17 @@
-﻿@model BlogCoreEngine.Core.Entities.CommentDataModel
+﻿@model Reddnet.Core.Entities.ReplyEntity
 
 <div class="CommentLi">
     <div class="CommentMain">
         <div class="CommentLeft">
-            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Author.Image)" />
-            <a style="margin-bottom: 10px;" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.Author.Name"><strong>u/@Model.Author.Name</strong></a>
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.AuthorEntity.Image)" />
+            <a style="margin-bottom: 10px;" asp-controller="Account" asp-action="Profile" asp-route-id="@Model.AuthorEntity.Name"><strong>u/@Model.AuthorEntity.Name</strong></a>
 
             @if (Model.Post.AuthorId == Model.AuthorId)
             {
-                <h6>Author</h6>
+                <h6>AuthorEntity</h6>
             }
 
-            <h3 style="color: gray; font-size: 11px">Posts: @(Model.Author.Posts.Count() + Model.Author.Comments.Count())</h3>
+            <h3 style="color: gray; font-size: 11px">Posts: @(Model.AuthorEntity.Posts.Count() + Model.AuthorEntity.Comments.Count())</h3>
         </div>
 
         <div class="CommentRight">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="underline">
-                @if (User.Identity.GetAuthorId() == Model.AuthorId || User.IsInRole("Administrator"))
+                @if (User.Identity.GetAuthorId() == Model.AuthorId || User.IsInRole(ApplicationRoles.Administrator))
                 {
                     <a style="margin-right: 10px;" class="clickLink" asp-controller="Comment" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                     <a class="clickLink" style="color: red;" asp-controller="Comment" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>

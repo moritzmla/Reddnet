@@ -1,5 +1,4 @@
-﻿@inject BlogCoreEngine.Core.Interfaces.IBlogOptionService blogOptionService;
-
+﻿
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,10 +6,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
-    <meta name="author" content="Moritz Müller" />
-    <meta name="description" content="BlogCoreEngine" />
+    <meta name="AuthorEntity" content="Moritz Müller" />
+    <meta name="description" content="Reddnet" />
 
-    <link rel="icon" href="data:image;base64,@System.Convert.ToBase64String(await blogOptionService.GetLogo())" />
+    <link rel="icon" href="~/images/Logo.png" />
 
     <link rel="stylesheet" href="~/css/Site.css" />
     <link rel="stylesheet" href="~/css/Comment.css" />
@@ -22,7 +21,7 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
-    <title>@await blogOptionService.GetTitle()</title>
+    <title>Reddnet</title>
 </head>
 
 <body>
@@ -31,12 +30,12 @@
             <div class="row-c">
                 <div class="logo">
                     <a asp-controller="Home" asp-action="Index">
-                        <img src="data:image;base64,@System.Convert.ToBase64String(await blogOptionService.GetLogo())" alt="LOGO" />
+                        <img src="~/images/Logo.png" alt="LOGO" />
                     </a>
                 </div>
 
                 <div class="branding">
-                    <h1><a asp-controller="Home" asp-action="Index">@await blogOptionService.GetTitle()</a></h1>
+                    <h1><a asp-controller="Home" asp-action="Index">Reddnet</a></h1>
                 </div>
             </div>
 
@@ -53,7 +52,7 @@
                 <div class="login">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a class="clickLink" asp-controller="Account" asp-action="Profile" asp-route-id="@User.Identity.GetAuthorName()">@User.Identity.GetAuthorName()</a>
+                        <a class="clickLink" asp-controller="Account" asp-action="Profile" asp-route-id="@User.Identity.GetAuthorEntityName()">@User.Identity.GetAuthorEntityName()</a>
                         <a class="clickLink" asp-controller="Account" asp-action="LogOut">Logout</a>
                     }
                     else
@@ -66,7 +65,7 @@
                 <div class="navigator">
                     <nav>
                         <ul>
-                            @if (this.User.IsInRole("Administrator"))
+                            @if (this.User.IsInRole(ApplicationRoles.Administrator))
                             {
                                 <li><a class="clickLink" asp-controller="Home" asp-action="AdminPanel">Admin Panel</a></li>
                             }

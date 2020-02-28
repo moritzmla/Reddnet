@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Core.Entities
+namespace Reddnet.Core.Entities
 {
-    public class BlogDataModel : BaseEntity
+    public class BlogEntity : EntityBase
     {
-        private ICollection<PostDataModel> _posts;
+        private ICollection<PostEntity> _posts;
 
-        public BlogDataModel() { }
+        public BlogEntity() { }
 
         private ILazyLoader LazyLoader { get; set; }
 
-        public BlogDataModel(ILazyLoader lazyLoader)
+        public BlogEntity(ILazyLoader lazyLoader)
         {
             this.LazyLoader = lazyLoader;
         }
@@ -26,7 +26,7 @@ namespace BlogCoreEngine.Core.Entities
         [Required]
         public byte[] Cover { get; set; }
 
-        public ICollection<PostDataModel> Posts
+        public ICollection<PostEntity> Posts
         {
             get => this.LazyLoader.Load(this, ref _posts);
             set => _posts = value;

@@ -1,22 +1,23 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.DataAccess.Data;
-using BlogCoreEngine.DataAccess.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Reddnet.Web.Extensions;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAcces.Identity;
+using Reddnet.DataAcces.Extensions;
+using Reddnet.DataAccess.Extensions;
 using System;
 using System.Threading.Tasks;
+using Reddnet.DataAccess.Identity;
 
-namespace BlogCoreEngine.Controllers
+namespace Reddnet.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly IAsyncRepository<CommentDataModel> commentRepository;
+        private readonly IAsyncRepository<ReplyEntity> commentRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public CommentController(IAsyncRepository<CommentDataModel> commentRepository, UserManager<ApplicationUser> userManager)
+        public CommentController(IAsyncRepository<ReplyEntity> commentRepository, UserManager<ApplicationUser> userManager)
         {
             this.commentRepository = commentRepository;
             this.userManager = userManager;
@@ -33,7 +34,7 @@ namespace BlogCoreEngine.Controllers
                 return this.RedirectToAsync<PostController>(x => x.Details(id));
             }
 
-            var newComment = await this.commentRepository.Add(new CommentDataModel
+            var newComment = await this.commentRepository.Add(new ReplyEntity
             {
                 Content = CommentText,
                 Created = DateTime.Now,
@@ -49,12 +50,12 @@ namespace BlogCoreEngine.Controllers
 
         #region Delete
 
-        [Authorize]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Delete(Guid id)
         {
             var comment = await this.commentRepository.GetById(id);
 
-            if (!(User.Identity.GetAuthorId() == comment.AuthorId || this.User.IsInRole("Administrator")))
+            if (User.Identity.GetAuthorId() != comment.AuthorId || this.User.IsInRole(ApplicationRoles.Administrator))
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
@@ -72,7 +73,7 @@ namespace BlogCoreEngine.Controllers
         {
             var comment = await this.commentRepository.GetById(id);
 
-            if (!(User.Identity.GetAuthorId() == comment.AuthorId || this.User.IsInRole("Administrator")))
+            if (!(User.Identity.GetAuthorId() == comment.AuthorId || this.User.IsInRole(ApplicationRoles.Administrator)))
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
@@ -81,7 +82,7 @@ namespace BlogCoreEngine.Controllers
         }
 
         [Authorize, HttpPost]
-        public async Task<IActionResult> Edit(Guid id, CommentDataModel comment)
+        public async Task<IActionResult> Edit(Guid id, ReplyEntity comment)
         {
             if (ModelState.IsValid)
             {

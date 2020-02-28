@@ -2,18 +2,18 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Core.Entities
+namespace Reddnet.Core.Entities
 {
-    public class CommentDataModel : BaseEntity
+    public class ReplyEntity : EntityBase
     {
-        private Author _author;
-        private PostDataModel _post;
+        private AuthorEntity _AuthorEntity;
+        private PostEntity _post;
 
-        public CommentDataModel() { }
+        public ReplyEntity() { }
 
         private ILazyLoader LazyLoader { get; set; }
 
-        public CommentDataModel(ILazyLoader lazyLoader)
+        public ReplyEntity(ILazyLoader lazyLoader)
         {
             this.LazyLoader = lazyLoader;
         }
@@ -22,14 +22,14 @@ namespace BlogCoreEngine.Core.Entities
         public string Content { get; set; }
 
         public Guid? AuthorId { get; set; }
-        public Author Author
+        public AuthorEntity AuthorEntity
         {
-            get => this.LazyLoader.Load(this, ref _author);
-            set => _author = value;
+            get => this.LazyLoader.Load(this, ref _AuthorEntity);
+            set => _AuthorEntity = value;
         }
 
         public Guid? PostId { get; set; }
-        public PostDataModel Post
+        public PostEntity Post
         {
             get => this.LazyLoader.Load(this, ref _post);
             set => _post = value;

@@ -1,31 +1,31 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.DataAccess.Data;
-using BlogCoreEngine.DataAccess.Extensions;
-using BlogCoreEngine.ViewModels;
-using BlogCoreEngine.Web.Extensions;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAcces.Extensions;
+using Reddnet.DataAccess.Extensions;
+using Reddnet.DataAccess.Identity;
+using Reddnet.ViewModels;
 using Reddnet.Web.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.Controllers
+namespace Reddnet.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAsyncRepository<Author> authorRepository;
+        private readonly IAsyncRepository<AuthorEntity> AuthorEntityRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountController(IAsyncRepository<Author> authorRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(IAsyncRepository<AuthorEntity> AuthorEntityRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            this.authorRepository = authorRepository;
+            this.AuthorEntityRepository = AuthorEntityRepository;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -35,13 +35,13 @@ namespace BlogCoreEngine.Controllers
         [Authorize]
         public IActionResult Settings(string id)
         {
-            if (id != this.User.Identity.GetAuthorName())
+            if (id != this.User.Identity.GetAuthorEntityName())
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
 
             var user = this.userManager.Users.FirstOrDefault(u => u.UserName == id);
-            ViewBag.CurrentUserPicture = user.Author.Image;
+            ViewBag.CurrentUserPicture = user.AuthorEntity.Image;
 
             return View();
         }
@@ -55,14 +55,14 @@ namespace BlogCoreEngine.Controllers
             {
                 if (!(profileViewModel.ProfilePicture == null || profileViewModel.ProfilePicture.Length <= 0))
                 {
-                    user.Author.Image = profileViewModel.ProfilePicture.ToByteArray();
+                    user.AuthorEntity.Image = profileViewModel.ProfilePicture.ToByteArray();
                 }
 
                 await this.userManager.UpdateAsync(user);
                 return this.RedirectToAsync<AccountController>(x => x.Profile(id));
             }
 
-            ViewBag.CurrentUserPicture = user.Author.Image;
+            ViewBag.CurrentUserPicture = user.AuthorEntity.Image;
             return View(profileViewModel);
         }
 
@@ -73,7 +73,7 @@ namespace BlogCoreEngine.Controllers
         public async Task<IActionResult> Profile(string id)
         {
             var user = await this.userManager.FindByNameAsync(id);
-            return View(user.Author);
+            return View(user.AuthorEntity);
         }
 
         #endregion
@@ -92,7 +92,7 @@ namespace BlogCoreEngine.Controllers
             {
                 if (registerViewModel.Password.Equals(registerViewModel.ConfirmPassword))
                 {
-                    var author = await this.authorRepository.Add(new Author
+                    var AuthorEntity = await this.AuthorEntityRepository.Add(new AuthorEntity
                     {
                         Id = Guid.NewGuid(),
                         Created = DateTime.Now,
@@ -105,7 +105,7 @@ namespace BlogCoreEngine.Controllers
                     {
                         UserName = registerViewModel.UserName,
                         Email = registerViewModel.Email,
-                        Author = author
+                        AuthorEntity = AuthorEntity
                     };
 
                     var result = await userManager.CreateAsync(applicationUser, registerViewModel.Password);

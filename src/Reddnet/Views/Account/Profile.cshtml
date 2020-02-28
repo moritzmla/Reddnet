@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.Core.Entities.Author
+﻿@model Reddnet.Core.Entities.AuthorEntity
 
 @{
 }
@@ -8,7 +8,7 @@
     {
         <div class="container">
             <h1>No Posts found!</h1>
-            <a class="clickLink" asp-controller="Blog" asp-action="NewPost">New Post</a>
+            <a class="clickLink" asp-controller="Blog" asp-action="New">New Post</a>
         </div>
     }
     else

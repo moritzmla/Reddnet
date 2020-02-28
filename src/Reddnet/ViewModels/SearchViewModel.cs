@@ -1,14 +1,14 @@
-﻿using BlogCoreEngine.Core.Entities;
+﻿using Reddnet.Core.Entities;
 using System.Collections.Generic;
 
-namespace BlogCoreEngine.ViewModels
+namespace Reddnet.ViewModels
 {
     public class SearchViewModel
     {
-        public IReadOnlyList<PostDataModel> Posts { get; set; }
+        public IReadOnlyList<PostEntity> Posts { get; set; }
 
-        public IReadOnlyList<BlogDataModel> Blogs { get; set; }
+        public IReadOnlyList<BlogEntity> Blogs { get; set; }
 
-        public IReadOnlyList<Author> Users { get; set; }
+        public IReadOnlyList<AuthorEntity> Users { get; set; }
     }
 }

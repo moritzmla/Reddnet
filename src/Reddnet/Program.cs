@@ -1,12 +1,12 @@
-﻿using BlogCoreEngine.DataAccess.Data;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Reddnet.DataAccess;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine
+namespace Reddnet
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main(string[] args)
         {

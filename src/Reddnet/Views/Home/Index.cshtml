@@ -1,15 +1,15 @@
-﻿@model BlogCoreEngine.ViewModels.SearchViewModel
-@using BlogCoreEngine.Core.Entities;
+﻿@model Reddnet.ViewModels.SearchViewModel
+@using Reddnet.Core.Entities;
 
-@inject BlogCoreEngine.Core.Interfaces.IAsyncRepository<Author> authorRepository;
+@inject Reddnet.Core.Interfaces.IAsyncRepository<AuthorEntity> AuthorEntityRepository;
 
 @{
     var TopToday = Model.Posts.OrderByDescending(x => x.Views).Take(3).Where(x => x.Created.Date == DateTime.Today);
 
-    Author currentUser = null;
+    AuthorEntity currentUser = null;
     if (User.Identity.IsAuthenticated)
     {
-        currentUser = await authorRepository.GetById(User.Identity.GetAuthorId());
+        currentUser = await AuthorEntityRepository.GetById(User.Identity.GetAuthorId());
     }
 }
 

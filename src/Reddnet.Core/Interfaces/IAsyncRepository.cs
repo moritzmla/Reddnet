@@ -1,11 +1,11 @@
-﻿using BlogCoreEngine.Core.Entities;
+﻿using Reddnet.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.Core.Interfaces
+namespace Reddnet.Core.Interfaces
 {
-    public interface IAsyncRepository<T> where T : BaseEntity
+    public interface IAsyncRepository<T> where T : EntityBase
     {
         Task<T> Add(T entity);
 
@@ -14,6 +14,8 @@ namespace BlogCoreEngine.Core.Interfaces
         Task Update(T entity);
 
         Task<IReadOnlyList<T>> GetAll();
+
+        Task<IReadOnlyList<T>> Get(Func<T, bool> predicate);
 
         Task<T> GetById(Guid entityId);
 

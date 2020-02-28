@@ -1,21 +1,22 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.Web.Extensions;
-using BlogCoreEngine.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAcces.Identity;
+using Reddnet.DataAcces.Extensions;
 using Reddnet.Web.Extensions;
+using Reddnet.Web.ViewModels;
 using System;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.Controllers
+namespace Reddnet.Controllers
 {
     public class BlogController : Controller
     {
-        private readonly IAsyncRepository<BlogDataModel> blogRepository;
+        private readonly IAsyncRepository<BlogEntity> blogRepository;
 
-        public BlogController(IAsyncRepository<BlogDataModel> blogRepository)
+        public BlogController(IAsyncRepository<BlogEntity> blogRepository)
         {
             this.blogRepository = blogRepository;
         }
@@ -32,13 +33,15 @@ namespace BlogCoreEngine.Controllers
 
         #region New
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public IActionResult New()
         {
             return View();
         }
 
-        [Authorize(Roles = "Administrator"), HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> New(BlogViewModel blog, IFormFile formFile)
         {
             if (ModelState.IsValid)
@@ -52,7 +55,7 @@ namespace BlogCoreEngine.Controllers
                     blog.Cover = System.IO.File.ReadAllBytes(".//wwwroot//images//Logo.png");
                 }
 
-                var newBlog = await this.blogRepository.Add(new BlogDataModel
+                var newBlog = await this.blogRepository.Add(new BlogEntity
                 {
                     Id = Guid.NewGuid(),
                     Name = blog.Name,
@@ -71,7 +74,7 @@ namespace BlogCoreEngine.Controllers
 
         #region Edit
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Edit(Guid id)
         {
             var blog = await this.blogRepository.GetById(id);
@@ -84,7 +87,9 @@ namespace BlogCoreEngine.Controllers
             });
         }
 
-        [Authorize(Roles = "Administrator"), HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, BlogViewModel blog, IFormFile formFile)
         {
             var targetBlog = await this.blogRepository.GetById(id);
@@ -112,7 +117,7 @@ namespace BlogCoreEngine.Controllers
 
         #region Delete
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Delete(Guid id)
         {
             await this.blogRepository.Remove(id);

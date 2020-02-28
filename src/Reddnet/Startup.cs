@@ -1,16 +1,16 @@
-﻿using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.Core.Services;
-using BlogCoreEngine.DataAccess.Data;
-using BlogCoreEngine.DataAccess.Extensions;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAccess;
+using Reddnet.DataAccess.Extensions;
+using Reddnet.DataAccess.Identity;
 
-namespace BlogCoreEngine
+namespace Reddnet
 {
     public class Startup
     {
@@ -34,13 +34,6 @@ namespace BlogCoreEngine
             services.AddScoped(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
-            services.AddScoped<IBlogOptionService, BlogOptionService>();
-
-            ConfigurateIdentity(services);
-        }
-
-        private void ConfigurateIdentity(IServiceCollection services)
-        {
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -76,9 +69,10 @@ namespace BlogCoreEngine
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

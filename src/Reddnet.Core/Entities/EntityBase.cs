@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Core.Entities
+namespace Reddnet.Core.Entities
 {
-    public class BaseEntity
+    public class EntityBase
     {
         [Key]
         public Guid Id { get; set; }

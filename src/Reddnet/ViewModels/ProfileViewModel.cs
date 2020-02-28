@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BlogCoreEngine.ViewModels
+namespace Reddnet.ViewModels
 {
     public class ProfileViewModel
     {

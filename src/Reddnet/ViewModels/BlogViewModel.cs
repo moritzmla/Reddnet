@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Web.ViewModels
+namespace Reddnet.Web.ViewModels
 {
     public class BlogViewModel
     {

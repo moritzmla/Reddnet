@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Core.Entities
+namespace Reddnet.Core.Entities
 {
-    public class Author : BaseEntity
+    public class AuthorEntity : EntityBase
     {
-        private ICollection<PostDataModel> _posts;
-        private ICollection<CommentDataModel> _comments;
+        private ICollection<PostEntity> _posts;
+        private ICollection<ReplyEntity> _comments;
 
-        public Author() { }
+        public AuthorEntity() { }
 
         private ILazyLoader LazyLoader { get; set; }
 
-        public Author(ILazyLoader lazyLoader)
+        public AuthorEntity(ILazyLoader lazyLoader)
         {
             this.LazyLoader = lazyLoader;
         }
@@ -24,13 +24,13 @@ namespace BlogCoreEngine.Core.Entities
         [Required]
         public byte[] Image { get; set; }
 
-        public ICollection<PostDataModel> Posts
+        public ICollection<PostEntity> Posts
         {
             get => this.LazyLoader.Load(this, ref _posts);
             set => _posts = value;
         }
 
-        public ICollection<CommentDataModel> Comments
+        public ICollection<ReplyEntity> Comments
         {
             get => this.LazyLoader.Load(this, ref _comments);
             set => _comments = value;

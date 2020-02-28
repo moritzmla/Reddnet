@@ -1,13 +1,13 @@
-﻿using BlogCoreEngine.Core.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Reddnet.Core.Entities;
 using System;
 
-namespace BlogCoreEngine.DataAccess.Data
+namespace Reddnet.DataAccess.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        private Author _author;
+        private AuthorEntity _authorEntity;
 
         public ApplicationUser() { }
 
@@ -19,10 +19,10 @@ namespace BlogCoreEngine.DataAccess.Data
         }
 
         public Guid? AuthorId { get; set; }
-        public Author Author
+        public AuthorEntity AuthorEntity
         {
-            get => this.LazyLoader.Load(this, ref _author);
-            set => _author = value;
+            get => this.LazyLoader.Load(this, ref _authorEntity);
+            set => _authorEntity = value;
         }
     }
 }

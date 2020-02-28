@@ -1,28 +1,29 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using BlogCoreEngine.DataAccess.Data;
-using BlogCoreEngine.DataAccess.Extensions;
-using BlogCoreEngine.Web.Extensions;
-using BlogCoreEngine.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
+using Reddnet.DataAcces.Extensions;
+using Reddnet.DataAcces.Identity;
+using Reddnet.DataAccess.Extensions;
+using Reddnet.DataAccess.Identity;
 using Reddnet.Web.Extensions;
+using Reddnet.Web.ViewModels;
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.Controllers
+namespace Reddnet.Controllers
 {
     public class PostController : Controller
     {
-        private readonly IAsyncRepository<PostDataModel> postRepository;
+        private readonly IAsyncRepository<PostEntity> postRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public PostController(IAsyncRepository<PostDataModel> postRepository, UserManager<ApplicationUser> userManager)
+        public PostController(IAsyncRepository<PostEntity> postRepository, UserManager<ApplicationUser> userManager)
         {
             this.postRepository = postRepository;
             this.userManager = userManager;
@@ -30,7 +31,7 @@ namespace BlogCoreEngine.Controllers
 
         #region Pin
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Pin(Guid id)
         {
             var post = await this.postRepository.GetById(id);
@@ -67,7 +68,7 @@ namespace BlogCoreEngine.Controllers
         {
             var post = await this.postRepository.GetById(id);
 
-            if (!(User.Identity.GetAuthorId() == post.AuthorId || this.User.IsInRole("Administrator")))
+            if (!(User.Identity.GetAuthorId() == post.AuthorId || this.User.IsInRole(ApplicationRoles.Administrator)))
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
@@ -135,7 +136,7 @@ namespace BlogCoreEngine.Controllers
                     post.Cover = System.IO.File.ReadAllBytes(".//wwwroot//images//Default.png");
                 }
 
-                var newPost = await this.postRepository.Add(new PostDataModel
+                var newPost = await this.postRepository.Add(new PostEntity
                 {
                     Id = Guid.NewGuid(),
                     AuthorId = User.Identity.GetAuthorId(),
@@ -157,10 +158,11 @@ namespace BlogCoreEngine.Controllers
             return View(post);
         }
 
-        [Authorize(Roles = "Administrator"), HttpPost]
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
         public async Task<IActionResult> Steal(Guid id, string WebsiteUrl)
         {
-            PostDataModel postDataModel = new PostDataModel
+            PostEntity PostEntity = new PostEntity
             {
                 Title = WebsiteUrl,
                 Link = WebsiteUrl,
@@ -179,13 +181,13 @@ namespace BlogCoreEngine.Controllers
                 readStream = response.CharacterSet == null ? new StreamReader(receiveStream) :
                     new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
-                postDataModel.Content = readStream.ReadToEnd();
+                PostEntity.Content = readStream.ReadToEnd();
 
                 response.Close();
                 readStream.Close();
             }
 
-            await this.postRepository.Add(postDataModel);
+            await this.postRepository.Add(PostEntity);
             return this.RedirectToAsync<BlogController>(x => x.View(id));
         }
 
@@ -193,12 +195,12 @@ namespace BlogCoreEngine.Controllers
 
         #region Archiv
 
-        [Authorize]
+        [Authorize(Roles = ApplicationRoles.Administrator)]
         public async Task<IActionResult> Archiv(Guid id)
         {
             var post = await this.postRepository.GetById(id);
 
-            if (!((User.Identity.GetAuthorId() == post.AuthorId) || this.User.IsInRole("Administrator")))
+            if (User.Identity.GetAuthorId() != post.AuthorId)
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }
@@ -218,7 +220,7 @@ namespace BlogCoreEngine.Controllers
         {
             var post = await this.postRepository.GetById(id);
 
-            if (!((User.Identity.GetAuthorId() == post.AuthorId) || this.User.IsInRole("Administrator")))
+            if (!((User.Identity.GetAuthorId() == post.AuthorId) || this.User.IsInRole(ApplicationRoles.Administrator)))
             {
                 return this.RedirectTo<HomeController>(x => x.NoAccess());
             }

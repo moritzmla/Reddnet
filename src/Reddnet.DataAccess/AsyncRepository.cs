@@ -1,14 +1,15 @@
-﻿using BlogCoreEngine.Core.Entities;
-using BlogCoreEngine.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Reddnet.Core.Entities;
+using Reddnet.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogCoreEngine.DataAccess.Data
+namespace Reddnet.DataAccess
 {
-    public class AsyncRepository<T> : IAsyncRepository<T> where T : BaseEntity
+    public class AsyncRepository<T> : IAsyncRepository<T> where T : EntityBase
     {
         private readonly ApplicationDbContext context;
         private readonly ILogger<AsyncRepository<T>> logger;
@@ -25,6 +26,12 @@ namespace BlogCoreEngine.DataAccess.Data
             await this.context.Set<T>().AddAsync(entity);
             await this.context.SaveChangesAsync();
             return entity;
+        }
+
+        public async Task<IReadOnlyList<T>> Get(Func<T, bool> predicate)
+        {
+            this.logger.LogInformation("get all entities");
+            return await this.context.Set<T>().Where(predicate).AsQueryable().ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAll()

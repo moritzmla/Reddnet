@@ -1,14 +1,16 @@
-﻿using BlogCoreEngine.Core.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Reddnet.Core.Entities;
+using Reddnet.DataAcces.Identity;
+using Reddnet.DataAccess.Identity;
 using System;
 using System.Collections.Generic;
 
-namespace BlogCoreEngine.DataAccess.Data
+namespace Reddnet.DataAccess
 {
     public static class ApplicationSeed
     {
-        private static Guid authorId => Guid.Parse("c6248606-ed80-4c2e-89b3-353d183fe284");
+        private static Guid AuthorId => Guid.Parse("c6248606-ed80-4c2e-89b3-353d183fe284");
         private static Guid blogId => Guid.Parse("22795939-9e17-492e-a890-9234ca8f5a08");
         private static Guid postId => Guid.Parse("f11fe6c8-0d5b-4c6b-9673-035d47d4396e");
         private static Guid adminId => Guid.Parse("37a0a393-bacf-48c3-b947-c45c53d467ee");
@@ -16,23 +18,22 @@ namespace BlogCoreEngine.DataAccess.Data
 
         public static void ApplySeed(ModelBuilder builder)
         {
-            builder.Entity<Author>().HasData(Authors());
-            builder.Entity<BlogDataModel>().HasData(Blogs());
-            builder.Entity<PostDataModel>().HasData(Posts());
-            builder.Entity<CommentDataModel>().HasData(Comments());
-            builder.Entity<OptionDataModel>().HasData(Options());
+            builder.Entity<AuthorEntity>().HasData(Authors());
+            builder.Entity<BlogEntity>().HasData(Blogs());
+            builder.Entity<PostEntity>().HasData(Posts());
+            builder.Entity<ReplyEntity>().HasData(Comments());
             builder.Entity<ApplicationUser>().HasData(ApplicationUsers());
             builder.Entity<IdentityRole>().HasData(Roles());
             builder.Entity<IdentityUserRole<string>>().HasData(UserRoles());
         }
 
-        private static List<Author> Authors()
+        private static List<AuthorEntity> Authors()
         {
-            return new List<Author>
+            return new List<AuthorEntity>
             {
-                new Author
+                new AuthorEntity
                 {
-                    Id = authorId,
+                    Id = AuthorId,
                     Created = DateTime.Now,
                     Modified = DateTime.Now,
                     Image = System.IO.File.ReadAllBytes(".//wwwroot//images//Profile.png"),
@@ -41,11 +42,11 @@ namespace BlogCoreEngine.DataAccess.Data
             };
         }
 
-        private static List<BlogDataModel> Blogs()
+        private static List<BlogEntity> Blogs()
         {
-            return new List<BlogDataModel>
+            return new List<BlogEntity>
             {
-                new BlogDataModel
+                new BlogEntity
                 {
                     Id = blogId,
                     Cover = System.IO.File.ReadAllBytes(".//wwwroot//images//Logo.png"),
@@ -57,14 +58,14 @@ namespace BlogCoreEngine.DataAccess.Data
             };
         }
 
-        private static List<PostDataModel> Posts()
+        private static List<PostEntity> Posts()
         {
-            return new List<PostDataModel>
+            return new List<PostEntity>
             {
-                new PostDataModel
+                new PostEntity
                 {
                     Id = postId,
-                    AuthorId = authorId,
+                    AuthorId = AuthorId,
                     BlogId = blogId,
                     Archieved = true,
                     Pinned = true,
@@ -78,31 +79,18 @@ namespace BlogCoreEngine.DataAccess.Data
             };
         }
 
-        private static List<CommentDataModel> Comments()
+        private static List<ReplyEntity> Comments()
         {
-            return new List<CommentDataModel>
+            return new List<ReplyEntity>
             {
-                new CommentDataModel
+                new ReplyEntity
                 {
                     Id = Guid.NewGuid(),
                     PostId = postId,
-                    AuthorId = authorId,
+                    AuthorId = AuthorId,
                     Content = "Default Comment",
                     Created = DateTime.Now,
                     Modified = DateTime.Now
-                }
-            };
-        }
-
-        private static List<OptionDataModel> Options()
-        {
-            return new List<OptionDataModel>
-            {
-                new OptionDataModel
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Reddnet",
-                    Logo = System.IO.File.ReadAllBytes(".//wwwroot//images//Logo.png")
                 }
             };
         }
@@ -113,8 +101,8 @@ namespace BlogCoreEngine.DataAccess.Data
             {
                 new IdentityRole {
                     Id = adminRoleId.ToString(),
-                    Name = "Administrator",
-                    NormalizedName = "administrator"
+                    Name = ApplicationRoles.Administrator,
+                    NormalizedName = ApplicationRoles.Administrator
                 }
             };
         }
@@ -127,7 +115,7 @@ namespace BlogCoreEngine.DataAccess.Data
                 new ApplicationUser
                 {
                     Id = adminId.ToString(),
-                    AuthorId = authorId,
+                    AuthorId = AuthorId,
                     UserName = "Admin",
                     NormalizedUserName = "admin",
                     Email = "default@default.com",

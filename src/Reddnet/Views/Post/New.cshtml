@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.Web.ViewModels.PostViewModel
+﻿@model Reddnet.Web.ViewModels.PostViewModel
 
 @{
 }
@@ -42,7 +42,7 @@
         </div>
     </form>
 
-    @if (User.IsInRole("Administrator"))
+    @if (User.IsInRole(ApplicationRoles.Administrator))
     {
         <div class="container" style="margin-bottom: 10px">
             <form asp-controller="Post" asp-action="Steal" method="post" asp-route-id="@ViewContext.RouteData.Values["id"]">

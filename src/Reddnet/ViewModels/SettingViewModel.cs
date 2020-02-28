@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.ViewModels
+namespace Reddnet.ViewModels
 {
     public class SettingViewModel
     {

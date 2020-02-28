@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IO;
 
-namespace BlogCoreEngine.Web.Extensions
+namespace Reddnet.Web.Extensions
 {
     public static class FileExtensions
     {

@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogCoreEngine.Core.Entities
+namespace Reddnet.Core.Entities
 {
-    public class PostDataModel : BaseEntity
+    public class PostEntity : EntityBase
     {
-        private Author _author;
-        private BlogDataModel _blog;
-        private ICollection<CommentDataModel> _comments;
+        private AuthorEntity _AuthorEntity;
+        private BlogEntity _blog;
+        private ICollection<ReplyEntity> _comments;
 
-        public PostDataModel() { }
+        public PostEntity() { }
 
         private ILazyLoader LazyLoader { get; set; }
 
-        public PostDataModel(ILazyLoader lazyLoader)
+        public PostEntity(ILazyLoader lazyLoader)
         {
             this.LazyLoader = lazyLoader;
         }
@@ -41,20 +41,20 @@ namespace BlogCoreEngine.Core.Entities
         public bool Pinned { get; set; }
 
         public Guid? BlogId { get; set; }
-        public BlogDataModel Blog
+        public BlogEntity Blog
         {
             get => this.LazyLoader.Load(this, ref _blog);
             set => _blog = value;
         }
 
         public Guid? AuthorId { get; set; }
-        public Author Author
+        public AuthorEntity AuthorEntity
         {
-            get => this.LazyLoader.Load(this, ref _author);
-            set => _author = value;
+            get => this.LazyLoader.Load(this, ref _AuthorEntity);
+            set => _AuthorEntity = value;
         }
 
-        public ICollection<CommentDataModel> Comments
+        public ICollection<ReplyEntity> Comments
         {
             get => this.LazyLoader.Load(this, ref _comments);
             set => _comments = value;

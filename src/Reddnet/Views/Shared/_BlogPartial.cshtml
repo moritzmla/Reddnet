@@ -1,4 +1,4 @@
-﻿@model BlogCoreEngine.Core.Entities.BlogDataModel
+﻿@model Reddnet.Core.Entities.BlogEntity
 
 @{
 }
@@ -44,7 +44,7 @@
         <div style="text-align: center">
             <a class="clickLink" asp-controller="Post" asp-action="New" asp-route-id="@Model.Id">New Post</a>
 
-            @if (User.IsInRole("Administrator"))
+            @if (User.IsInRole(ApplicationRoles.Administrator))
             {
                 <a style="margin-left: 10px" class="clickLink" asp-controller="Blog" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
             }
