@@ -12,16 +12,16 @@ You need the .NET 5.0 SDK (Download: https://dotnet.microsoft.com/download) and 
   
 # Images
 
-  <img src=".//images/1.PNG" width="850">
+  <img src=".//Images/1.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/2.PNG" width="850">
+  <img src=".//Images/2.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/3.PNG" width="850">
+  <img src=".//Images/3.PNG" width="850">
   
   <hr />
   
-  <img src=".//images/4.PNG" width="850">
+  <img src=".//Images/4.PNG" width="850">
