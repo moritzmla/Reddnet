@@ -9,6 +9,7 @@ You need the .NET 5.0 SDK (Download: https://dotnet.microsoft.com/download) and 
 - Create Subreddits
 - Publish Posts
 - Add replies
+- Search for posts
   
 # Images
 
