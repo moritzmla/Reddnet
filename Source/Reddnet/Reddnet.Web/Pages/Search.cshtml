@@ -1,0 +1,8 @@
+﻿@page "{query?}"
+@model Reddnet.Web.Pages.SearchModel
+@{
+    ViewData["Title"] = Model.Query;
+}
+
+<partial name="/Pages/Shared/_PostList.cshtml" model="Model.Posts" />
+

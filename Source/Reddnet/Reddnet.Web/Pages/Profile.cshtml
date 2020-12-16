@@ -1,0 +1,18 @@
+﻿@page "{name}"
+@model Reddnet.Web.Pages.ProfileModel
+@{
+    ViewData["Title"] = Model.UserName;
+}
+
+<partial name="/Pages/Shared/_PostList.cshtml" model="Model.Posts" />
+
+<div class="sidebar flex col m-y-block-2">
+    <div class="box outline round p-a-1">
+        <h1 class="font big">
+            About @Model.UserName
+        </h1>
+    </div>
+    <div>
+        <partial name="/Pages/Shared/_About.cshtml" />
+    </div>
+</div>

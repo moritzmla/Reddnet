@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="~/css/main.css" />
+        <link rel="stylesheet" href="~/css/sizes.css" />
+        <link rel="icon" href="~/images/logo.png" />
+        <title>@ViewBag.Title - Reddnet</title>
+    </head>
+    <body class="box">
+        <header class="box outline-bottom p-y-1 p-x-2">
+            <div class="flex row col-center m-x-block-2">
+                <a asp-page="/Index">
+                    <img src="~/images/logo.png" style="height: 2rem;" />
+                </a>
+                <a class="link primary" asp-page="/Index">
+                    Reddnet
+                </a>
+                <form class="flex stretch" asp-page="/Search" method="get">
+                    <input class="input stretch" type="text" name="query" placeholder="Search..." />
+                </form>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn light" asp-page="/Profile" asp-route-name="@User.Identity.Name">@User.Identity.Name</a>
+                    <a class="btn primary" asp-page="/Post/Create">Create Post</a>
+                    <a class="btn light" asp-page="/Account/Logout">Logout</a>
+                }
+                else
+                {
+                    <a class="btn primary outline" asp-page="/Account/Login">Login</a>
+                    <a class="btn primary" asp-page="/Account/Register">Register</a>
+                }
+            </div>
+        </header>
+        <div class="flex row row-center p-a-2 m-x-block-2">
+            @RenderBody()
+        </div>
+        <script> </script>
+    </body>
+</html>

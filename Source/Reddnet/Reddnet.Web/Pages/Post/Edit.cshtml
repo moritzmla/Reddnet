@@ -1,0 +1,32 @@
+﻿@page "{id}"
+@model Reddnet.Web.Pages.Post.EditModel
+@{
+    ViewData["Title"] = "Edit " + Model.Title;
+}
+
+<div class="container box outline round">
+    <form class="form p-a-1 m-y-block-2" method="post" enctype="multipart/form-data">
+        <h1 class="font big">
+            Edit @Model.Title
+        </h1>
+
+        <div class="group m-y-block-1">
+            <label asp-for="Image"></label>
+            <input class="input" asp-for="Image" />
+        </div>
+        <div class="group m-y-block-1">
+            <label asp-for="Title"></label>
+            <input class="input" asp-for="Title" />
+        </div>
+        <div class="group m-y-block-1">
+            <label asp-for="Text"></label>
+            <textarea class="input" asp-for="Text"></textarea>
+        </div>
+
+        <div class="group">
+            <div asp-validation-summary="All"></div>
+            <button class="btn primary" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,99 @@
+﻿@page "{id}"
+@model Reddnet.Web.Pages.Post.ViewModel
+@{
+    ViewData["Title"] = Model.Post.Title;
+    var orderedReplies = Model.Post.Replies.OrderBy(x => x.Created);
+}
+
+<div class="post flex col m-y-block-2">
+    <div class="box outline round p-a-1 m-y-block-2">
+        <h1 class="font big">
+            @Model.Post.Title
+        </h1>
+        <div class="flex row col-center font small m-x-block-1">
+            <a class="link" asp-page="/Community/View" asp-route-name="@Model.Post.Community.Name">
+                <strong>
+                    r/@Model.Post.Community.Name
+                </strong>
+            </a>
+            <p>
+                •
+            </p>
+            <p>
+                Posted by
+                <a class="link" asp-page="/Profile" asp-route-name="@Model.Post.User.UserName">
+                    u/@Model.Post.User.UserName
+                </a>
+            </p>
+            <p>
+                •
+            </p>
+            <p>
+                @Model.Post.Created.ToString("HH:mm")
+            </p>
+        </div>
+        <p>
+            @Model.Post.Content
+        </p>
+        <div class="flex row col-center m-x-block-1">
+            <p>
+                <strong>
+                    @Model.Post.Replies.Count
+                </strong>
+                Comments
+            </p>
+            @if (User.GetUserId() == Model.Post.UserId)
+            {
+                <a class="link warning" asp-page="/Post/Edit" asp-route-id="@Model.Post.Id">
+                    Edit
+                </a>
+                <a class="link danger" asp-page="/Post/Delete" asp-route-id="@Model.Post.Id">
+                    Delete
+                </a>
+            }
+        </div>
+    </div>
+    <div class="box outline round p-a-1">
+        <form class="flex row m-x-block-2" method="post">
+            <input class="input stretch" asp-for="Text" placeholder="Reply..." />
+            <button class="btn primary outline" type="submit">Reply</button>
+        </form>
+    </div>
+    @if (orderedReplies.Any())
+    {
+        <div class="box outline round p-a-1 m-y-block-1">
+            @foreach (var reply in orderedReplies)
+            {
+                <div class="flex col m-y-block-1">
+                    <div class="flex row font small m-x-block-1">
+                        <p>
+                            <a class="link" asp-page="/Profile" asp-route-name="@reply.User.UserName">
+                                u/@reply.User.UserName
+                            </a>
+                        </p>
+                        <p>
+                            •
+                        </p>
+                        <p>
+                            @reply.Created.ToString("HH:mm")
+                        </p>
+                        @if (User.GetUserId() == reply.UserId)
+                        {
+                            <a class="link danger" asp-page="/Reply/Delete" asp-route-id="@reply.Id">
+                                Delete
+                            </a>
+                        }
+                    </div>
+                    <p>
+                        @reply.Content
+                    </p>
+                </div>
+
+                if (reply != orderedReplies.Last())
+                {
+                    <hr class="hr" />
+                }
+            }
+        </div>
+    }
+</div>

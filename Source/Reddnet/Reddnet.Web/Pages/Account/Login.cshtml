@@ -1,0 +1,34 @@
+﻿@page
+@model Reddnet.Web.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container box outline round">
+    <form class="form p-a-1 m-y-block-2" method="post">
+        <h1 class="font big">
+            Login
+        </h1>
+
+        <div class="group m-y-block-1">
+            <label asp-for="Email"></label>
+            <input class="input" asp-for="Email" />
+        </div>
+        <div class="group m-y-block-1">
+            <label asp-for="Password"></label>
+            <input class="input" asp-for="Password" />
+        </div>
+
+        <div class="group m-y-block-2">
+            <div asp-validation-summary="All"></div>
+            <button class="btn primary" type="submit">
+                Login
+            </button>
+            <hr class="hr" />
+            <a class="btn primary light" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">
+                Register?
+            </a>
+        </div>
+    </form>
+</div>
+
