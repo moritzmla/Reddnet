@@ -12,7 +12,7 @@ You need the .NET 5.0 SDK (Download: https://dotnet.microsoft.com/download) and 
   
 # Images
 
-  <img src=".//Images/1.PNG" width="850">
+  <img src=".//Images/1.png" width="850">
   
   <hr />
   
