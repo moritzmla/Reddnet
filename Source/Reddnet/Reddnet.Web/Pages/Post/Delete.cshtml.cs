@@ -18,11 +18,17 @@ namespace Reddnet.Web.Pages.Post
 
         public async Task<IActionResult> OnGet(Guid id)
         {
-            await this.mediator.Send(new DeletePostCommand
+            var response = await this.mediator.Send(new DeletePostCommand
             {
                 Id = id
             });
-            return Redirect(RouteConstants.Index);
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

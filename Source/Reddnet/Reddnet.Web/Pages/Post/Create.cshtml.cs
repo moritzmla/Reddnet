@@ -24,13 +24,19 @@ namespace Reddnet.Web.Pages.Post
 
         public async Task<IActionResult> OnGet()
         {
-            this.Communities = await this.mediator.Send(new GetAllCommunitiesQuery());
+            var response = await this.mediator.Send(new GetAllCommunitiesQuery());
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
 
             if (!this.Communities.Any())
             {
-                return Redirect(RouteConstants.Index);
+                return Redirect(RouteConstants.CommunityCreate);
             }
 
+            this.Communities = response.Data;
             return Page();
         }
 
@@ -38,7 +44,7 @@ namespace Reddnet.Web.Pages.Post
         {
             if (ModelState.IsValid)
             {
-                var post = await this.mediator.Send(new CreatePostCommand
+                var response = await this.mediator.Send(new CreatePostCommand
                 {
                     UserId = this.User.GetUserId(),
                     CommunityId = this.Community,
@@ -46,7 +52,13 @@ namespace Reddnet.Web.Pages.Post
                     Title = this.Title,
                     Content = this.Text
                 });
-                return RedirectToPage(RouteConstants.PostView, new { post.Id });
+
+                if (response.IsError)
+                {
+                    return Redirect(RouteConstants.Error);
+                }
+
+                return RedirectToPage(RouteConstants.PostView, new { response.Data.Id });
             }
             return RedirectToPage();
         }

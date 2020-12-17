@@ -22,10 +22,17 @@ namespace Reddnet.Web.Pages.Post
 
         public async Task<IActionResult> OnGet(Guid id)
         {
-            this.Post = await this.mediator.Send(new GetPostByIdQuery
+            var response = await this.mediator.Send(new GetPostByIdQuery
             {
                 Id = id
             });
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            this.Post = response.Data;
             return Page();
         }
 
@@ -33,12 +40,17 @@ namespace Reddnet.Web.Pages.Post
         {
             if (ModelState.IsValid)
             {
-                await this.mediator.Send(new CreateReplyCommand
+                var response = await this.mediator.Send(new CreateReplyCommand
                 {
                     PostId = this.Post.Id,
                     UserId = User.GetUserId(),
                     Content = this.Text
                 });
+
+                if (response.IsError)
+                {
+                    return Redirect(RouteConstants.Error);
+                }
             }
             return RedirectToPage();
         }

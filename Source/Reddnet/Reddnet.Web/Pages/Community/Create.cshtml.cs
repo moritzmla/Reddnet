@@ -23,7 +23,7 @@ namespace Reddnet.Web.Pages.Community
         {
             if (ModelState.IsValid)
             {
-                var Community = await this.mediator.Send(new CreateCommunityCommand
+                var response = await this.mediator.Send(new CreateCommunityCommand
                 {
                     UserId = User.GetUserId(),
                     Name = this.Name,
@@ -31,7 +31,12 @@ namespace Reddnet.Web.Pages.Community
                     Image = await this.Image.GetBytes()
                 });
 
-                return RedirectToPage(RouteConstants.CommunityView, new { Community.Name });
+                if (response.IsError)
+                {
+                    return Redirect(RouteConstants.Error);
+                }
+
+                return RedirectToPage(RouteConstants.CommunityView, new { response.Data.Name });
             }
 
             return Page();

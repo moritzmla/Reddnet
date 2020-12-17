@@ -19,11 +19,18 @@ namespace Reddnet.Web.Pages
 
         public async Task<IActionResult> OnGet(string name)
         {
-            this.UserName = name;
-            this.Posts = await this.mediator.Send(new GetPostsByUserName
+            var response = await this.mediator.Send(new GetPostsByUserName
             {
                 UserName = name
             });
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            this.Posts = response.Data;
+            this.UserName = name;
             return Page();
         }
 

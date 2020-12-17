@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Reddnet.Application.Exceptions;
 using Reddnet.Application.Interfaces;
+using Reddnet.Application.Validation;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Commands
 {
-    public record UpdatePostCommand : IRequest<Guid>
+    public record UpdatePostCommand : IRequest<Result<Guid>>
     {
         public Guid Id { get; init; }
         #pragma warning disable CS8632
@@ -18,7 +18,7 @@ namespace Reddnet.Application.Post.Commands
         #pragma warning restore CS8632
     }
 
-    internal class UpdatePostHandler : IRequestHandler<UpdatePostCommand, Guid>
+    internal class UpdatePostHandler : IRequestHandler<UpdatePostCommand, Result<Guid>>
     {
         private readonly IDataContext context;
         private readonly ICurrentUserAccessor userAccessor;
@@ -29,14 +29,14 @@ namespace Reddnet.Application.Post.Commands
             this.userAccessor = userAccessor;
         }
 
-        public async Task<Guid> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
             var post = await this.context.Posts
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (post == null || (userAccessor.IsAuthenticated && post.UserId != userAccessor.Id))
             {
-                throw new NotFoundException();
+                return Result<Guid>.Failed("Not found");
             }
 
             if (request.Image != null)
@@ -55,8 +55,7 @@ namespace Reddnet.Application.Post.Commands
             }
 
             await this.context.SaveChangesAsync(cancellationToken);
-
-            return post.Id;
+            return Result<Guid>.Ok(post.Id);
         }
     }
 }

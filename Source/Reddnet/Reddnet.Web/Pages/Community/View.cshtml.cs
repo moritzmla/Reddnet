@@ -17,10 +17,17 @@ namespace Reddnet.Web.Pages.Community
 
         public async Task<IActionResult> OnGet()
         {
-            this.Community = await this.mediator.Send(new GetCommunityByNameQuery
+            var response = await this.mediator.Send(new GetCommunityByNameQuery
             {
                 Name = this.Name
             });
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            this.Community = response.Data;
             return Page();
         }
 

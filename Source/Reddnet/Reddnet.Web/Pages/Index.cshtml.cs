@@ -21,11 +21,15 @@ namespace Reddnet.Web.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            this.Communities = await this.mediator.Send(new GetAllCommunitiesQuery());
-            this.Feed = await this.mediator.Send(new GetUserFeedQuery
+            var communitiesResponse = await this.mediator.Send(new GetAllCommunitiesQuery());
+            this.Communities = communitiesResponse.Data;
+
+            var feedResponse = await this.mediator.Send(new GetUserFeedQuery
             {
                 Id = User.GetUserId()
             });
+            this.Feed = feedResponse.Data;
+
             return Page();
         }
 

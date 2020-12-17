@@ -1,19 +1,19 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Reddnet.Application.Exceptions;
 using Reddnet.Application.Interfaces;
+using Reddnet.Application.Validation;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Commands
 {
-    public record DeletePostCommand : IRequest
+    public record DeletePostCommand : IRequest<Result>
     {
         public Guid Id { get; init; }
     }
 
-    internal class DeletePostHandler : AsyncRequestHandler<DeletePostCommand>
+    internal class DeletePostHandler : IRequestHandler<DeletePostCommand, Result>
     {
         private readonly IDataContext context;
         private readonly ICurrentUserAccessor userAccessor;
@@ -24,18 +24,20 @@ namespace Reddnet.Application.Post.Commands
             this.userAccessor = userAccessor;
         }
 
-        protected override async Task Handle(DeletePostCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
             var post = await this.context.Posts
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (post is null || (userAccessor.IsAuthenticated && post.UserId != userAccessor.Id))
             {
-                throw new NotFoundException();
+                return Result.Failed("Not found");
             }
 
             this.context.Posts.Remove(post);
             await this.context.SaveChangesAsync(cancellationToken);
+
+            return Result.Ok();
         }
     }
 }

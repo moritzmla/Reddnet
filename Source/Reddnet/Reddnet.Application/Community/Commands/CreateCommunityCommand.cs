@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Reddnet.Application.Interfaces;
+using Reddnet.Application.Validation;
 using Reddnet.Domain.Entities;
 using System;
 using System.Threading;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public record CreateCommunityCommand : IRequest<CommunityEntity>
+    public record CreateCommunityCommand : IRequest<Result<CommunityEntity>>
     {
         public Guid UserId { get; init; }
         public string Name { get; init; }
@@ -15,14 +16,14 @@ namespace Reddnet.Application.Community.Commands
         public byte[] Image { get; init; }
     }
 
-    internal class CreateSubredditHandler : IRequestHandler<CreateCommunityCommand, CommunityEntity>
+    internal class CreateSubredditHandler : IRequestHandler<CreateCommunityCommand, Result<CommunityEntity>>
     {
         private readonly IDataContext context;
 
         public CreateSubredditHandler(IDataContext context)
             => this.context = context;
 
-        public async Task<CommunityEntity> Handle(CreateCommunityCommand request, CancellationToken cancellationToken)
+        public async Task<Result<CommunityEntity>> Handle(CreateCommunityCommand request, CancellationToken cancellationToken)
         {
             var community = this.context.Communities.Add(new CommunityEntity
             {
@@ -34,7 +35,7 @@ namespace Reddnet.Application.Community.Commands
             });
 
             await this.context.SaveChangesAsync(cancellationToken);
-            return community.Entity;
+            return Result<CommunityEntity>.Ok(community.Entity);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Reddnet.Application.Exceptions;
 using Reddnet.Application.Interfaces;
+using Reddnet.Application.Validation;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public record UpdateCommunityCommand : IRequest<string>
+    public record UpdateCommunityCommand : IRequest<Result<string>>
     {
         public string Name { get; init; }
         #pragma warning disable CS8632
@@ -16,7 +16,7 @@ namespace Reddnet.Application.Community.Commands
         #pragma warning restore CS8632
     }
 
-    internal class UpdateSubredditHandler : IRequestHandler<UpdateCommunityCommand, string>
+    internal class UpdateSubredditHandler : IRequestHandler<UpdateCommunityCommand, Result<string>>
     {
         private readonly IDataContext context;
         private readonly ICurrentUserAccessor userAccessor;
@@ -27,14 +27,14 @@ namespace Reddnet.Application.Community.Commands
             this.userAccessor = userAccessor;
         }
 
-        public async Task<string> Handle(UpdateCommunityCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(UpdateCommunityCommand request, CancellationToken cancellationToken)
         {
             var community = await this.context.Communities
                 .FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
 
             if (community == null || (userAccessor.IsAuthenticated && community.UserId != userAccessor.Id))
             {
-                throw new NotFoundException();
+                return Result<string>.Failed("Not found");
             }
 
             if (request.Description != null)
@@ -48,8 +48,7 @@ namespace Reddnet.Application.Community.Commands
             }
 
             await this.context.SaveChangesAsync(cancellationToken);
-
-            return community.Name;
+            return Result<string>.Ok(community.Name);
         }
     }
 }

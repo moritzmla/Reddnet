@@ -1,18 +1,18 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Reddnet.Application.Exceptions;
 using Reddnet.Application.Interfaces;
+using Reddnet.Application.Validation;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public record DeleteCommunityCommand : IRequest
+    public record DeleteCommunityCommand : IRequest<Result>
     {
         public string Name { get; init; }
     }
 
-    internal class DeleteSubredditHandler : AsyncRequestHandler<DeleteCommunityCommand>
+    internal class DeleteSubredditHandler : IRequestHandler<DeleteCommunityCommand, Result>
     {
         private readonly IDataContext context;
         private readonly ICurrentUserAccessor userAccessor;
@@ -23,14 +23,14 @@ namespace Reddnet.Application.Community.Commands
             this.userAccessor = userAccessor;
         }
 
-        protected override async Task Handle(DeleteCommunityCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteCommunityCommand request, CancellationToken cancellationToken)
         {
             var community = await this.context.Communities
                 .FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
 
             if (community is null || (userAccessor.IsAuthenticated && community.UserId != userAccessor.Id))
             {
-                throw new NotFoundException();
+                return Result.Failed("Not found");
             }
 
             foreach (var post in community.Posts)
@@ -40,6 +40,7 @@ namespace Reddnet.Application.Community.Commands
 
             this.context.Communities.Remove(community);
             await this.context.SaveChangesAsync(cancellationToken);
+            return Result.Ok();
         }
     }
 }

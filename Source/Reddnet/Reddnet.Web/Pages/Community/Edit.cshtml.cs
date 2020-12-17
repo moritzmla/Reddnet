@@ -21,12 +21,22 @@ namespace Reddnet.Web.Pages.Community
 
         public async Task<IActionResult> OnGet(string name)
         {
-            var community = await mediator.Send(new GetCommunityByNameQuery
+            var response = await mediator.Send(new GetCommunityByNameQuery
             {
                 Name = name
             });
-            this.Name = community.Name;
-            this.Description = community.Description;
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+            else if (response.Data.UserId != User.GetUserId())
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            this.Name = response.Data.Name;
+            this.Description = response.Data.Description;
             return Page();
         }
 
@@ -34,15 +44,19 @@ namespace Reddnet.Web.Pages.Community
         {
             if (ModelState.IsValid)
             {
-                var request = new UpdateCommunityCommand
+                var response = await this.mediator.Send(new UpdateCommunityCommand
                 {
                     Name = this.Name,
                     Description = this.Description,
                     Image = this.Image == null ? null : await this.Image.GetBytes()
-                };
+                });
 
-                var name = await this.mediator.Send(request);
-                return RedirectToPage(RouteConstants.CommunityView, new { name });
+                if (response.IsError)
+                {
+                    return Redirect(RouteConstants.Error);
+                }
+
+                return RedirectToPage(RouteConstants.CommunityView, new { response.Data });
             }
             return Page();
         }

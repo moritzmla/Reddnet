@@ -17,11 +17,17 @@ namespace Reddnet.Web.Pages.Community
 
         public async Task<IActionResult> OnGet(string name)
         {
-            this.Name = name;
-            await this.mediator.Send(new DeleteCommunityCommand
+            var response = await this.mediator.Send(new DeleteCommunityCommand
             {
                 Name = name
             });
+
+            if (response.IsError)
+            {
+                return Redirect(RouteConstants.Error);
+            }
+
+            this.Name = name;
             return Redirect(RouteConstants.Index);
         }
 
