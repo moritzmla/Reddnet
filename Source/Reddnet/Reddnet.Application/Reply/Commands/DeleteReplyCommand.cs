@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Reply.Commands
 {
-    public class DeleteReplyCommand : IRequest
+    public record DeleteReplyCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 
     internal class DeleteReplyHandler : AsyncRequestHandler<DeleteReplyCommand>

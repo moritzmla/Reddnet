@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Queries
 {
-    public class GetPostsByFilter : IRequest<IEnumerable<PostEntity>>
+    public record GetPostsByFilter : IRequest<IEnumerable<PostEntity>>
     {
-        public string Query { get; set; }
+        public string Query { get; init; }
     }
 
     internal class GetPostsByFilterHandler : IRequestHandler<GetPostsByFilter, IEnumerable<PostEntity>>

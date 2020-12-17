@@ -31,7 +31,7 @@ namespace Reddnet.Web.Pages.Community
                     Image = await this.Image.GetBytes()
                 });
 
-                return RedirectToPage("/Community/View", new { Community.Name });
+                return RedirectToPage(RouteConstants.CommunityView, new { Community.Name });
             }
 
             return Page();

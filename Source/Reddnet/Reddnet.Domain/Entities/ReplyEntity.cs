@@ -3,7 +3,7 @@ using System;
 
 namespace Reddnet.Domain.Entities
 {
-    public class ReplyEntity : EntityBase
+    public record ReplyEntity : EntityBase
     {
         private UserEntity _user;
         private PostEntity _post;

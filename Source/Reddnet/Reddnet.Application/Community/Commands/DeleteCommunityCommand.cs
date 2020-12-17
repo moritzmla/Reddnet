@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public class DeleteCommunityCommand : IRequest
+    public record DeleteCommunityCommand : IRequest
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 
     internal class DeleteSubredditHandler : AsyncRequestHandler<DeleteCommunityCommand>

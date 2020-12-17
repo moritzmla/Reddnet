@@ -15,7 +15,7 @@
         {
             @foreach (var Community in Model.Communities)
             {
-                <a class="link" asp-page="/Community/View" asp-route-name="@Community.Name">
+                <a class="link" asp-page="@RouteConstants.CommunityView" asp-route-name="@Community.Name">
                     @Community.Name
                 </a>
             }
@@ -26,11 +26,9 @@
                 No communities found.
             </p>
         }
-        <a class="btn primary outline" asp-page="/Community/Create">
+        <a class="btn primary outline" asp-page="@RouteConstants.CommunityCreate">
             Create Community
         </a>
     </div>
-    <div>
-        <partial name="/Pages/Shared/_About.cshtml" />
-    </div>
+    <partial name="/Pages/Shared/_About.cshtml" />
 </div>

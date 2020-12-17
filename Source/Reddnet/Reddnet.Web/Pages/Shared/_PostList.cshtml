@@ -6,24 +6,26 @@
         {
             @foreach (var post in Model)
             {
-                <div class="flex row">
-                    <img src="data:image;base64,@System.Convert.ToBase64String(post.Image)" class="m-r-2" style="width: 5rem; height: 4rem;" />
+                <div class="flex row m-x-block-2">
+                    <img class="image" src="data:image;base64,@System.Convert.ToBase64String(post.Image)" style="width: 5.5rem; height: 4.5rem;" />
                     <div class="flex col stretch m-y-block-1">
                         <h1 class="font big">
-                            <a class="link" asp-page="/Post/View" asp-route-id="@post.Id">
+                            <a class="link" asp-page="@RouteConstants.PostView" asp-route-id="@post.Id">
                                 @post.Title
                             </a>
                         </h1>
                         <div class="flex row col-center font small m-x-block-1">
-                            <a class="link" asp-page="/Community/View" asp-route-name="@post.Community.Name">
-                                <strong>r/@post.Community.Name</strong>
+                            <a class="link" asp-page="@RouteConstants.CommunityView" asp-route-name="@post.Community.Name">
+                                <strong>
+                                    r/@post.Community.Name
+                                </strong>
                             </a>
                             <p>
                                 •
                             </p>
                             <p>
                                 Posted by
-                                <a class="link" asp-page="/Profile" asp-route-name="@post.User.UserName">
+                                <a class="link" asp-page="@RouteConstants.Profile" asp-route-name="@post.User.UserName">
                                     u/@post.User.UserName
                                 </a>
                             </p>
@@ -43,10 +45,10 @@
                             </p>
                             @if (User.GetUserId() == post.UserId)
                             {
-                                <a class="link warning" asp-page="/Post/Edit" asp-route-id="@post.Id">
+                                <a class="link warning" asp-page="@RouteConstants.PostEdit" asp-route-id="@post.Id">
                                     Edit
                                 </a>
-                                <a class="link danger" asp-page="/Post/Delete" asp-route-id="@post.Id">
+                                <a class="link danger" asp-page="@RouteConstants.PostDelete" asp-route-id="@post.Id">
                                     Delete
                                 </a>
                             }
@@ -62,11 +64,9 @@
         }
         else
         {
-            <div class="p-a-1">
-                <p>
-                    No post's found.
-                </p>
-            </div>
+            <p>
+                No post's found.
+            </p>
         }
     </div>
 </div>

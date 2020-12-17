@@ -28,7 +28,7 @@ namespace Reddnet.Web.Pages.Post
 
             if (!this.Communities.Any())
             {
-                return Redirect("/");
+                return Redirect(RouteConstants.Index);
             }
 
             return Page();
@@ -46,7 +46,7 @@ namespace Reddnet.Web.Pages.Post
                     Title = this.Title,
                     Content = this.Text
                 });
-                return RedirectToPage("/Post/View", new { post.Id });
+                return RedirectToPage(RouteConstants.PostView, new { post.Id });
             }
             return RedirectToPage();
         }
@@ -59,7 +59,6 @@ namespace Reddnet.Web.Pages.Post
         [Required]
         [BindProperty]
         public string Title { get; set; }
-        [Required]
         [BindProperty]
         public string Text { get; set; }
         [Required]

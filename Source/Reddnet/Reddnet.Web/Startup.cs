@@ -17,20 +17,20 @@ namespace Reddnet.Web
                 .AddRazorPagesOptions(options =>
                 {
                     options.RootDirectory = "/Pages";
-                    options.Conventions.AddPageRoute("/Community/View", "r/{name}");
-                    options.Conventions.AddPageRoute("/Community/Create", "new/community");
-                    options.Conventions.AddPageRoute("/Community/Delete", "r/{name}/delete");
-                    options.Conventions.AddPageRoute("/Community/Edit", "r/{name}/edit");
-                    options.Conventions.AddPageRoute("/Post/View", "p/{id}");
-                    options.Conventions.AddPageRoute("/Post/Create", "new/post");
-                    options.Conventions.AddPageRoute("/Post/Delete", "p/{id}/delete");
-                    options.Conventions.AddPageRoute("/Post/Edit", "p/{id}/edit");
-                    options.Conventions.AddPageRoute("/Reply/Delete", "reply/{id}/delete");
-                    options.Conventions.AddPageRoute("/Account/Register", "register");
-                    options.Conventions.AddPageRoute("/Account/Login", "/login");
-                    options.Conventions.AddPageRoute("/Account/Logout", "/logout");
-                    options.Conventions.AddPageRoute("/Search", "/search");
-                    options.Conventions.AddPageRoute("/Profile", "u/{name}");
+                    options.Conventions.AddPageRoute(RouteConstants.CommunityView, "r/{name}");
+                    options.Conventions.AddPageRoute(RouteConstants.CommunityCreate, "new/community");
+                    options.Conventions.AddPageRoute(RouteConstants.CommunityDelete, "r/{name}/delete");
+                    options.Conventions.AddPageRoute(RouteConstants.CommunityEdit, "r/{name}/edit");
+                    options.Conventions.AddPageRoute(RouteConstants.PostView, "p/{id}");
+                    options.Conventions.AddPageRoute(RouteConstants.PostCreate, "new/post");
+                    options.Conventions.AddPageRoute(RouteConstants.PostDelete, "p/{id}/delete");
+                    options.Conventions.AddPageRoute(RouteConstants.PostEdit, "p/{id}/edit");
+                    options.Conventions.AddPageRoute(RouteConstants.ReplyDelete, "reply/{id}/delete");
+                    options.Conventions.AddPageRoute(RouteConstants.AccountRegister, "register");
+                    options.Conventions.AddPageRoute(RouteConstants.AccountLogin, "/login");
+                    options.Conventions.AddPageRoute(RouteConstants.AccountLogout, "/logout");
+                    options.Conventions.AddPageRoute(RouteConstants.Search, "/search");
+                    options.Conventions.AddPageRoute(RouteConstants.Profile, "u/{name}");
                 });
 
             services.AddIdentity<UserEntity, IdentityRole<Guid>>(x =>
@@ -54,7 +54,7 @@ namespace Reddnet.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(RouteConstants.Error);
             }
 
             app.UseStaticFiles();

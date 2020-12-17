@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public class UpdateCommunityCommand : IRequest<string>
+    public record UpdateCommunityCommand : IRequest<string>
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
         #pragma warning disable CS8632
-        public string? Description { get; set; }
-        public byte[]? Image { get; set; }
+        public string? Description { get; init; }
+        public byte[]? Image { get; init; }
         #pragma warning restore CS8632
     }
 

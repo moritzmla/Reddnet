@@ -22,14 +22,14 @@
                 </form>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="btn light" asp-page="/Profile" asp-route-name="@User.Identity.Name">@User.Identity.Name</a>
-                    <a class="btn primary" asp-page="/Post/Create">Create Post</a>
-                    <a class="btn light" asp-page="/Account/Logout">Logout</a>
+                    <a class="btn light" asp-page="@RouteConstants.Profile" asp-route-name="@User.Identity.Name">@User.Identity.Name</a>
+                    <a class="btn primary" asp-page="@RouteConstants.PostCreate">Create Post</a>
+                    <a class="btn light" asp-page="@RouteConstants.AccountLogout">Logout</a>
                 }
                 else
                 {
-                    <a class="btn primary outline" asp-page="/Account/Login">Login</a>
-                    <a class="btn primary" asp-page="/Account/Register">Register</a>
+                    <a class="btn primary outline" asp-page="@RouteConstants.AccountLogin">Login</a>
+                    <a class="btn primary" asp-page="@RouteConstants.AccountRegister">Register</a>
                 }
             </div>
         </header>

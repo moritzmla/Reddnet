@@ -22,7 +22,7 @@ namespace Reddnet.Web.Pages.Post
             {
                 Id = id
             });
-            return Redirect("/");
+            return Redirect(RouteConstants.Index);
         }
     }
 }

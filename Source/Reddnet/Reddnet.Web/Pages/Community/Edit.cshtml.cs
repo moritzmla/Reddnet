@@ -21,12 +21,12 @@ namespace Reddnet.Web.Pages.Community
 
         public async Task<IActionResult> OnGet(string name)
         {
-            this.Name = name;
-            var Community = await mediator.Send(new GetCommunityByNameQuery
+            var community = await mediator.Send(new GetCommunityByNameQuery
             {
                 Name = name
             });
-            this.Description = Community.Description;
+            this.Name = community.Name;
+            this.Description = community.Description;
             return Page();
         }
 
@@ -37,16 +37,12 @@ namespace Reddnet.Web.Pages.Community
                 var request = new UpdateCommunityCommand
                 {
                     Name = this.Name,
-                    Description = this.Description
+                    Description = this.Description,
+                    Image = this.Image == null ? null : await this.Image.GetBytes()
                 };
 
-                if (this.Image != null)
-                {
-                    request.Image = await this.Image.GetBytes();
-                }
-
                 var name = await this.mediator.Send(request);
-                return RedirectToPage("/Community/View", new { name });
+                return RedirectToPage(RouteConstants.CommunityView, new { name });
             }
             return Page();
         }

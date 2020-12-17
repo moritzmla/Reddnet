@@ -40,16 +40,12 @@ namespace Reddnet.Web.Pages.Post
                 {
                     Id = this.Id,
                     Title = this.Title,
-                    Content = this.Text
+                    Content = this.Text,
+                    Image = this.Image == null ? null : await this.Image.GetBytes()
                 };
 
-                if (this.Image != null)
-                {
-                    request.Image = await this.Image.GetBytes();
-                }
-
                 var id = await this.mediator.Send(request);
-                return RedirectToPage("/Post/View", new { id });
+                return RedirectToPage(RouteConstants.PostView, new { id });
             }
             return Page();
         }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Reply.Commands
 {
-    public class CreateReplyCommand : IRequest<ReplyEntity>
+    public record CreateReplyCommand : IRequest<ReplyEntity>
     {
-        public Guid PostId { get; set; }
-        public Guid UserId { get; set; }
-        public string Content { get; set; }
+        public Guid PostId { get; init; }
+        public Guid UserId { get; init; }
+        public string Content { get; init; }
     }
 
     internal class CreateReplyHandler : IRequestHandler<CreateReplyCommand, ReplyEntity>

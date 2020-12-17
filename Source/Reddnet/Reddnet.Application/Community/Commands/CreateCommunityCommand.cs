@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Commands
 {
-    public class CreateCommunityCommand : IRequest<CommunityEntity>
+    public record CreateCommunityCommand : IRequest<CommunityEntity>
     {
-        public Guid UserId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public byte[] Image { get; set; }
+        public Guid UserId { get; init; }
+        public string Name { get; init; }
+        public string Description { get; init; }
+        public byte[] Image { get; init; }
     }
 
     internal class CreateSubredditHandler : IRequestHandler<CreateCommunityCommand, CommunityEntity>

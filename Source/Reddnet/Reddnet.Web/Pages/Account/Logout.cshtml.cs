@@ -17,7 +17,7 @@ namespace Reddnet.Web.Pages.Account
         public async Task<IActionResult> OnGet()
         {
             await this.signInManager.SignOutAsync();
-            return Redirect("/");
+            return Redirect(RouteConstants.Index);
         }
     }
 }

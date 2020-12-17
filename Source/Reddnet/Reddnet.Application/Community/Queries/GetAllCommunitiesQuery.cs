@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Community.Queries
 {
-    public class GetAllCommunitiesQuery : IRequest<IEnumerable<CommunityEntity>>
-    {
-    }
+    public record GetAllCommunitiesQuery : IRequest<IEnumerable<CommunityEntity>> { }
 
     internal class GetAllSubredditsHandler : IRequestHandler<GetAllCommunitiesQuery, IEnumerable<CommunityEntity>>
     {

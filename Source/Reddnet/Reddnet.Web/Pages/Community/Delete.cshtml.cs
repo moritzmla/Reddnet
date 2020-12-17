@@ -22,7 +22,7 @@ namespace Reddnet.Web.Pages.Community
             {
                 Name = name
             });
-            return Redirect("/");
+            return Redirect(RouteConstants.Index);
         }
 
         [BindProperty]

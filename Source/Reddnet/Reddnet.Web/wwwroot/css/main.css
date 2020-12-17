@@ -1071,10 +1071,15 @@
             text-decoration: underline;
         }
 
-img {
+.image {
+    border-radius: 0.3rem;
     -o-object-fit: cover;
     object-fit: cover;
 }
+
+    .image.round {
+        border-radius: 50rem;
+    }
 
 * {
     font-size: 100%;

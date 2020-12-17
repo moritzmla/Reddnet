@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Commands
 {
-    public class UpdatePostCommand : IRequest<Guid>
+    public record UpdatePostCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
         #pragma warning disable CS8632
-        public byte[]? Image { get; set; }
-        public string? Title { get; set; }
-        public string? Content { get; set; }
+        public byte[]? Image { get; init; }
+        public string? Title { get; init; }
+        public string? Content { get; init; }
         #pragma warning restore CS8632
     }
 

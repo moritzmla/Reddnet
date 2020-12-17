@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Reddnet.Domain.Entities
 {
-    public class PostEntity : EntityBase
+    public record PostEntity : EntityBase
     {
         private UserEntity _user;
         private CommunityEntity _community;

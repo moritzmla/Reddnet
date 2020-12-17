@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.User.Queries
 {
-    public class GetUserFeedQuery : IRequest<IEnumerable<PostEntity>>
+    public record GetUserFeedQuery : IRequest<IEnumerable<PostEntity>>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 
     internal class GetUserFeedHandler : IRequestHandler<GetUserFeedQuery, IEnumerable<PostEntity>>

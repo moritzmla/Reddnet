@@ -35,7 +35,7 @@ namespace Reddnet.Web.Pages.Account
 
                     if (result.Succeeded)
                     {
-                        return Redirect(string.IsNullOrEmpty(this.ReturnUrl) ? "/" : this.ReturnUrl);
+                        return Redirect(string.IsNullOrEmpty(this.ReturnUrl) ? RouteConstants.Index : this.ReturnUrl);
                     }
                 }
             }

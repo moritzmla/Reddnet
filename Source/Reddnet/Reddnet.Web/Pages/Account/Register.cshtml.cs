@@ -38,7 +38,7 @@ namespace Reddnet.Web.Pages.Account
                 if (result.Succeeded)
                 {
                     await this.signInManager.SignInAsync(user, true);
-                    return Redirect(string.IsNullOrEmpty(this.ReturnUrl) ? "/" : this.ReturnUrl);
+                    return Redirect(string.IsNullOrEmpty(this.ReturnUrl) ? RouteConstants.Index : this.ReturnUrl);
                 }
             }
 

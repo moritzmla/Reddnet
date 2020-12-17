@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Commands
 {
-    public class CreatePostCommand : IRequest<PostEntity>
+    public record CreatePostCommand : IRequest<PostEntity>
     {
-        public Guid CommunityId { get; set; }
-        public Guid UserId { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public byte[] Image { get; set; }
+        public Guid CommunityId { get; init; }
+        public Guid UserId { get; init; }
+        public string Title { get; init; }
+        public string Content { get; init; }
+        public byte[] Image { get; init; }
     }
 
     internal class CreatePostHandler : IRequestHandler<CreatePostCommand, PostEntity>

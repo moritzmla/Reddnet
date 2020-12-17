@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Reddnet.Application.Post.Queries
 {
-    public class GetPostByIdQuery : IRequest<PostEntity>
+    public record GetPostByIdQuery : IRequest<PostEntity>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 
     internal class GetPostByIdHandler : IRequestHandler<GetPostByIdQuery, PostEntity>

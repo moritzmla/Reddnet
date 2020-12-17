@@ -11,7 +11,7 @@
             @Model.Post.Title
         </h1>
         <div class="flex row col-center font small m-x-block-1">
-            <a class="link" asp-page="/Community/View" asp-route-name="@Model.Post.Community.Name">
+            <a class="link" asp-page="@RouteConstants.CommunityView" asp-route-name="@Model.Post.Community.Name">
                 <strong>
                     r/@Model.Post.Community.Name
                 </strong>
@@ -21,7 +21,7 @@
             </p>
             <p>
                 Posted by
-                <a class="link" asp-page="/Profile" asp-route-name="@Model.Post.User.UserName">
+                <a class="link" asp-page="@RouteConstants.Profile" asp-route-name="@Model.Post.User.UserName">
                     u/@Model.Post.User.UserName
                 </a>
             </p>
@@ -32,9 +32,12 @@
                 @Model.Post.Created.ToString("HH:mm")
             </p>
         </div>
-        <p>
-            @Model.Post.Content
-        </p>
+        @if (!string.IsNullOrWhiteSpace(Model.Post.Content))
+        {
+            <p>
+                @Model.Post.Content
+            </p>
+        }
         <div class="flex row col-center m-x-block-1">
             <p>
                 <strong>
@@ -44,10 +47,10 @@
             </p>
             @if (User.GetUserId() == Model.Post.UserId)
             {
-                <a class="link warning" asp-page="/Post/Edit" asp-route-id="@Model.Post.Id">
+                <a class="link warning" asp-page="@RouteConstants.PostEdit" asp-route-id="@Model.Post.Id">
                     Edit
                 </a>
-                <a class="link danger" asp-page="/Post/Delete" asp-route-id="@Model.Post.Id">
+                <a class="link danger" asp-page="@RouteConstants.PostDelete" asp-route-id="@Model.Post.Id">
                     Delete
                 </a>
             }
@@ -67,7 +70,7 @@
                 <div class="flex col m-y-block-1">
                     <div class="flex row font small m-x-block-1">
                         <p>
-                            <a class="link" asp-page="/Profile" asp-route-name="@reply.User.UserName">
+                            <a class="link" asp-page="@RouteConstants.Profile" asp-route-name="@reply.User.UserName">
                                 u/@reply.User.UserName
                             </a>
                         </p>
@@ -79,7 +82,7 @@
                         </p>
                         @if (User.GetUserId() == reply.UserId)
                         {
-                            <a class="link danger" asp-page="/Reply/Delete" asp-route-id="@reply.Id">
+                            <a class="link danger" asp-page="@RouteConstants.ReplyDelete" asp-route-id="@reply.Id">
                                 Delete
                             </a>
                         }
