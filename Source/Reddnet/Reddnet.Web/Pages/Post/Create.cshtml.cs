@@ -31,12 +31,12 @@ namespace Reddnet.Web.Pages.Post
                 return Redirect(RouteConstants.Error);
             }
 
+            this.Communities = response.Data;
             if (!this.Communities.Any())
             {
                 return Redirect(RouteConstants.CommunityCreate);
             }
 
-            this.Communities = response.Data;
             return Page();
         }
 

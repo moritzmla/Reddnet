@@ -56,7 +56,7 @@ namespace Reddnet.Web.Pages.Community
                     return Redirect(RouteConstants.Error);
                 }
 
-                return RedirectToPage(RouteConstants.CommunityView, new { response.Data });
+                return RedirectToPage(RouteConstants.CommunityView, new { name = response.Data });
             }
             return Page();
         }
