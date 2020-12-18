@@ -10,26 +10,21 @@
     </head>
     <body class="box">
         <header class="box outline-bottom p-y-1 p-x-2">
-            <div class="flex row col-center m-x-block-2">
+            <div class="flex row center m-x-block-2">
                 <a asp-page="/Index">
                     <img src="~/images/logo.png" style="height: 2rem;" />
                 </a>
                 <a class="link primary" asp-page="/Index">
                     Reddnet
                 </a>
-                <form class="flex stretch" asp-page="/Search" method="get">
-                    <input class="input stretch" type="text" name="query" placeholder="Search..." />
-                </form>
                 @if (User.Identity.IsAuthenticated)
                 {
+                    <form class="flex stretch" asp-page="/Search" method="get">
+                        <input class="input stretch" type="text" name="query" placeholder="Search..." />
+                    </form>
                     <a class="btn light" asp-page="@RouteConstants.Profile" asp-route-name="@User.Identity.Name">@User.Identity.Name</a>
                     <a class="btn primary" asp-page="@RouteConstants.PostCreate">Create Post</a>
                     <a class="btn light" asp-page="@RouteConstants.AccountLogout">Logout</a>
-                }
-                else
-                {
-                    <a class="btn primary outline" asp-page="@RouteConstants.AccountLogin">Login</a>
-                    <a class="btn primary" asp-page="@RouteConstants.AccountRegister">Register</a>
                 }
             </div>
         </header>

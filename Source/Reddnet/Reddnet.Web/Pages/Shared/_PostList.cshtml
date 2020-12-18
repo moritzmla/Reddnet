@@ -7,7 +7,9 @@
             @foreach (var post in Model)
             {
                 <div class="flex row m-x-block-2">
-                    <img class="image" src="data:image;base64,@System.Convert.ToBase64String(post.Image)" style="width: 5.5rem; height: 4.5rem;" />
+                    <a asp-page="@RouteConstants.PostView" asp-route-id="@post.Id">
+                        <img class="image" src="data:image;base64,@System.Convert.ToBase64String(post.Image)" style="width: 5.5rem; height: 4.5rem;" />
+                    </a>
                     <div class="flex col stretch m-y-block-1">
                         <h1 class="font big">
                             <a class="link" asp-page="@RouteConstants.PostView" asp-route-id="@post.Id">
