@@ -25,7 +25,13 @@
                 <button class="btn primary" type="submit">
                     Login
                 </button>
-                <hr class="hr" />
+                <div class="flex row center m-x-block-1">
+                    <hr class="hr stretch" />
+                    <p>
+                        OR
+                    </p>
+                    <hr class="hr stretch" />
+                </div>
                 <a class="btn primary light" asp-page="@RouteConstants.AccountRegister" asp-route-returnUrl="@Model.ReturnUrl">
                     Register?
                 </a>

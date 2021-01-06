@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Reddnet.Application.Community.Queries;
 using Reddnet.Application.Post.Commands;
+using Reddnet.Domain.Entities;
 using Reddnet.Web.Extensions;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace Reddnet.Web.Pages.Post
                 return Redirect(RouteConstants.CommunityCreate);
             }
 
-            this.SelectList = new SelectList(response.Data, "Id", "Name");
+            this.Communities = response.Data;
             return Page();
         }
 
@@ -62,7 +63,7 @@ namespace Reddnet.Web.Pages.Post
         }
 
         [BindProperty]
-        public SelectList SelectList { get; set; }
+        public IEnumerable<CommunityEntity> Communities { get; set; }
         [Required]
         [BindProperty]
         public Guid Community { get; set; }

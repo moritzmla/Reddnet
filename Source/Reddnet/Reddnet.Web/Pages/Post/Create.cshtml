@@ -12,7 +12,7 @@
 
         <div class="group m-y-block-1">
             <label asp-for="Community"></label>
-            <select class="input" asp-for="Community" asp-items="Model.SelectList"></select>
+            <select class="input" asp-for="Community" asp-items="@(new SelectList(Model.Communities, "Id", "Name"))"></select>
         </div>
         <div class="group m-y-block-1">
             <label asp-for="Image"></label>

@@ -309,12 +309,12 @@
 
 .btn {
     display: block;
-    outline: none;
     color: black;
     background-color: gainsboro;
-    padding: 0.7rem 1rem;
     border: 2px solid gainsboro;
     border-radius: 0.3rem;
+    outline: none;
+    padding: 0.7rem 1rem;
     text-decoration: none;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
@@ -341,8 +341,8 @@
         }
 
         .btn:not(:disabled):focus {
-            -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.3);
-            box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.3);
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.25);
         }
 
     .btn:disabled {
@@ -356,12 +356,12 @@
 
     .btn.light {
         display: block;
-        outline: none;
         color: gainsboro;
         background-color: white;
-        padding: 0.7rem 1rem;
         border: 2px solid white;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -386,8 +386,8 @@
             }
 
             .btn.light:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
             }
 
         .btn.light:disabled {
@@ -397,12 +397,12 @@
 
     .btn.outline {
         display: block;
-        outline: none;
         color: black;
         background-color: white;
-        padding: 0.7rem 1rem;
         border: 2px solid gainsboro;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -427,8 +427,8 @@
             }
 
             .btn.outline:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(220, 220, 220, 0.25);
             }
 
         .btn.outline:disabled {
@@ -442,12 +442,12 @@
 
     .btn.primary {
         display: block;
-        outline: none;
         color: black;
         background-color: #FF5700;
-        padding: 0.7rem 1rem;
         border: 2px solid #FF5700;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -474,8 +474,8 @@
             }
 
             .btn.primary:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
             }
 
         .btn.primary:disabled {
@@ -489,12 +489,12 @@
 
         .btn.primary.light {
             display: block;
-            outline: none;
             color: #FF5700;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid white;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -519,8 +519,8 @@
                 }
 
                 .btn.primary.light:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
                 }
 
             .btn.primary.light:disabled {
@@ -530,12 +530,12 @@
 
         .btn.primary.outline {
             display: block;
-            outline: none;
             color: black;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid #FF5700;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -560,8 +560,8 @@
                 }
 
                 .btn.primary.outline:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
                 }
 
             .btn.primary.outline:disabled {
@@ -571,12 +571,12 @@
 
     .btn.danger {
         display: block;
-        outline: none;
         color: white;
         background-color: #CA0B00;
-        padding: 0.7rem 1rem;
         border: 2px solid #CA0B00;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -603,8 +603,8 @@
             }
 
             .btn.danger:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.25);
             }
 
         .btn.danger:disabled {
@@ -618,12 +618,12 @@
 
         .btn.danger.light {
             display: block;
-            outline: none;
             color: #CA0B00;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid white;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -648,8 +648,8 @@
                 }
 
                 .btn.danger.light:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
                 }
 
             .btn.danger.light:disabled {
@@ -659,12 +659,12 @@
 
         .btn.danger.outline {
             display: block;
-            outline: none;
             color: black;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid #CA0B00;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -689,8 +689,8 @@
                 }
 
                 .btn.danger.outline:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(202, 11, 0, 0.25);
                 }
 
             .btn.danger.outline:disabled {
@@ -700,12 +700,12 @@
 
     .btn.success {
         display: block;
-        outline: none;
         color: black;
         background-color: #589C48;
-        padding: 0.7rem 1rem;
         border: 2px solid #589C48;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -732,8 +732,8 @@
             }
 
             .btn.success:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.25);
             }
 
         .btn.success:disabled {
@@ -747,12 +747,12 @@
 
         .btn.success.light {
             display: block;
-            outline: none;
             color: #589C48;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid white;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -777,8 +777,8 @@
                 }
 
                 .btn.success.light:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
                 }
 
             .btn.success.light:disabled {
@@ -788,12 +788,12 @@
 
         .btn.success.outline {
             display: block;
-            outline: none;
             color: black;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid #589C48;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -818,8 +818,8 @@
                 }
 
                 .btn.success.outline:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(88, 156, 72, 0.25);
                 }
 
             .btn.success.outline:disabled {
@@ -829,12 +829,12 @@
 
     .btn.warning {
         display: block;
-        outline: none;
         color: black;
         background-color: #ffcc00;
-        padding: 0.7rem 1rem;
         border: 2px solid #ffcc00;
         border-radius: 0.3rem;
+        outline: none;
+        padding: 0.7rem 1rem;
         text-decoration: none;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
@@ -861,8 +861,8 @@
             }
 
             .btn.warning:not(:disabled):focus {
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.3);
-                box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.3);
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
             }
 
         .btn.warning:disabled {
@@ -876,12 +876,12 @@
 
         .btn.warning.light {
             display: block;
-            outline: none;
             color: #ffcc00;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid white;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -906,8 +906,8 @@
                 }
 
                 .btn.warning.light:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
                 }
 
             .btn.warning.light:disabled {
@@ -917,12 +917,12 @@
 
         .btn.warning.outline {
             display: block;
-            outline: none;
             color: black;
             background-color: white;
-            padding: 0.7rem 1rem;
             border: 2px solid #ffcc00;
             border-radius: 0.3rem;
+            outline: none;
+            padding: 0.7rem 1rem;
             text-decoration: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
@@ -947,8 +947,8 @@
                 }
 
                 .btn.warning.outline:not(:disabled):focus {
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.3);
-                    box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.3);
+                    -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
+                    box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
                 }
 
             .btn.warning.outline:disabled {
@@ -958,12 +958,12 @@
 
 .input {
     display: block;
-    outline: none;
     color: black;
     background-color: white;
-    padding: 0.7rem 1rem;
     border: 2px solid #FF5700;
     border-radius: 0.3rem;
+    outline: none;
+    padding: 0.7rem 1rem;
     text-decoration: none;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
@@ -989,8 +989,8 @@
         }
 
         .input:not(:disabled):focus {
-            -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
-            box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.3);
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(255, 87, 0, 0.25);
         }
 
     .input:disabled {
@@ -1091,31 +1091,31 @@
 }
 
     .strong * {
-        font-weight: bold !important;
+        font-weight: bold;
     }
 
 .font.small {
-    font-size: 13px !important;
+    font-size: 90%;
 }
 
     .font.small * {
-        font-size: 13px !important;
+        font-size: 90%;
     }
 
 .font.medium {
-    font-size: 100% !important;
+    font-size: 100%;
 }
 
     .font.medium * {
-        font-size: 100% !important;
+        font-size: 100%;
     }
 
 .font.big {
-    font-size: 20px !important;
+    font-size: 110%;
 }
 
     .font.big * {
-        font-size: 20px !important;
+        font-size: 110%;
     }
 
 .box {
@@ -1168,23 +1168,23 @@
     }
 
     .box.outline {
-        border: 2px solid gainsboro;
+        border: 1px solid gainsboro;
     }
 
     .box.outline-right {
-        border-right: 2px solid gainsboro;
+        border-right: 1px solid gainsboro;
     }
 
     .box.outline-left {
-        border-left: 2px solid gainsboro;
+        border-left: 1px solid gainsboro;
     }
 
     .box.outline-top {
-        border-top: 2px solid gainsboro;
+        border-top: 1px solid gainsboro;
     }
 
     .box.outline-bottom {
-        border-bottom: 2px solid gainsboro;
+        border-bottom: 1px solid gainsboro;
     }
 
 .hr {
@@ -1205,7 +1205,7 @@
 
     .form *.group label {
         font-weight: bolder;
-        font-size: 13px;
+        font-size: 90%;
     }
 
 .flex {
