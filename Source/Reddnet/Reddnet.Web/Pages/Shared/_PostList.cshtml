@@ -43,7 +43,7 @@
                                 <strong>
                                     @post.Replies.Count
                                 </strong>
-                                @(post.Replies.Count > 1 ? "Replies" : "Reply")
+                                @(post.Replies.Count == 1 ? "Reply" : "Replies")
                             </p>
                             @if (User.GetUserId() == post.UserId)
                             {

@@ -15,7 +15,7 @@
             <strong>
                 @Model.Posts.Count()
             </strong>
-            @(Model.Posts.Count() > 1 ? "Posts" : "Post")
+            @(Model.Posts.Count() == 1 ? "Post" : "Posts")
         </p>
     </div>
     <partial name="/Pages/Shared/_About.cshtml" />
