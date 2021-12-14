@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddnet.Domain", "Reddnet.Domain\Reddnet.Domain.csproj", "{593A0992-98AB-4425-B3F4-F1EAF0566091}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3626865C-06B6-426C-A983-B35E6B1A6D52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{77E92352-CBE9-4B10-9419-4B45A4FF0248}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E9DED824-44DE-4DD4-BC3F-B00E1F9A9396}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3925BE76-576A-4599-A5F6-949B5E1E23AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddnet.Application", "Reddnet.Application\Reddnet.Application.csproj", "{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddnet.Web", "Reddnet.Web\Reddnet.Web.csproj", "{8FEF078C-D0AE-4BE8-9C59-CCF365744A65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddnet.DataAccess", "Reddnet.DataAccess\Reddnet.DataAccess.csproj", "{77239154-0764-4674-A053-50CE7C3D564E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{593A0992-98AB-4425-B3F4-F1EAF0566091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593A0992-98AB-4425-B3F4-F1EAF0566091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593A0992-98AB-4425-B3F4-F1EAF0566091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593A0992-98AB-4425-B3F4-F1EAF0566091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEF078C-D0AE-4BE8-9C59-CCF365744A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEF078C-D0AE-4BE8-9C59-CCF365744A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEF078C-D0AE-4BE8-9C59-CCF365744A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEF078C-D0AE-4BE8-9C59-CCF365744A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77239154-0764-4674-A053-50CE7C3D564E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77239154-0764-4674-A053-50CE7C3D564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77239154-0764-4674-A053-50CE7C3D564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77239154-0764-4674-A053-50CE7C3D564E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{593A0992-98AB-4425-B3F4-F1EAF0566091} = {77E92352-CBE9-4B10-9419-4B45A4FF0248}
+		{AE79B427-D80B-4636-BE38-9F3BE3FA1BA3} = {3626865C-06B6-426C-A983-B35E6B1A6D52}
+		{8FEF078C-D0AE-4BE8-9C59-CCF365744A65} = {3925BE76-576A-4599-A5F6-949B5E1E23AF}
+		{77239154-0764-4674-A053-50CE7C3D564E} = {E9DED824-44DE-4DD4-BC3F-B00E1F9A9396}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C69A36E-E8D4-4A19-88C6-423B23D799B6}
+	EndGlobalSection
+EndGlobal
