@@ -1,15 +1,50 @@
-# Reddnet
-A simple open source mini Reddit written in .NET 5.0
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src=".//Images/reddit.webp" alt="Logo" width="100" height="100">
+  </a>
 
-# Setup to run it on you Computer
-You need the .NET 5.0 SDK (Download: https://dotnet.microsoft.com/download) and the Microsoft Sql Server (Download: https://www.microsoft.com/en-au/sql-server/sql-server-downloads *Free Developer Version)
+  <h1 align="center"> Reddnet </h1>
 
-# Features
-- Login / Register
-- Create Subreddits
-- Publish Posts
-- Add replies
-- Search for posts
+  <p align="center">
+    A simple open source mini Reddit written in .NET 6.0 with ASP.NET Core.
+  </p>
+</div>
+
+## Getting Started
+Use these instructions to get the project up and running.
+
+### Prerequisites
+You will need the following tools:
+
+- [Visual Studio Code or Visual Studio](https://visualstudio.microsoft.com)
+- [.NET 6 SDK](https://dotnet.microsoft.com/download)
+- [Postgresql](https://www.postgresql.org/download)
+
+### Setup
+Follow these steps to get your development environment set up:
+
+1. Clone the repository
+2. At the root directory, restore required packages by running:
+
+   ```
+   dotnet restore
+   ```
+3. Next, build the solution by running:
+
+   ```
+   dotnet build
+   ```
+4. Next, execute the project by running:
+
+   ```
+   dotnet run
+   ```
+
+## Technologies
+- .NET 6
+- ASP.NET Core 6
+- Entity Framework Core 6
+- Postgresql
   
 # Images
 
@@ -26,3 +61,6 @@ You need the .NET 5.0 SDK (Download: https://dotnet.microsoft.com/download) and 
   <hr />
   
   <img src=".//Images/4.PNG" width="850">
+  
+## License
+Distributed under the MIT License. See `LICENSE.txt` for more information.
