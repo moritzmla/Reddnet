@@ -40,7 +40,6 @@ public class CreateModel : PageModel
         {
             var response = await this.mediator.Send(new CreatePostCommand
             {
-                UserId = this.User.GetUserId(),
                 CommunityId = this.Community,
                 Image = await this.Image.GetBytes(),
                 Title = this.Title,

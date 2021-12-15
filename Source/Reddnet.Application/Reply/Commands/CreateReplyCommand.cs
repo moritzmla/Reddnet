@@ -8,7 +8,6 @@ namespace Reddnet.Application.Reply.Commands;
 public record CreateReplyCommand : IRequest<Result<ReplyEntity>>
 {
     public Guid PostId { get; init; }
-    public Guid UserId { get; init; }
     public string Content { get; init; }
 }
 
@@ -21,11 +20,10 @@ internal class CreateReplyHandler : IRequestHandler<CreateReplyCommand, Result<R
 
     public async Task<Result<ReplyEntity>> Handle(CreateReplyCommand request, CancellationToken cancellationToken)
     {
-        var reply = this.context.Replies.Add(new ReplyEntity
+        var reply = this.context.Replies.Add(new()
         {
             Id = Guid.NewGuid(),
             PostId = request.PostId,
-            UserId = request.UserId,
             Content = request.Content
         });
 

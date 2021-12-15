@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Reddnet.Domain.Interfaces;
 
 namespace Reddnet.Domain.Entities;
 
-public record ReplyEntity : Entity
+public record ReplyEntity : Entity, IUserEntity, IAuditEntity
 {
     private UserEntity _user;
     private PostEntity _post;
@@ -15,6 +16,8 @@ public record ReplyEntity : Entity
     }
 
     public string Content { get; set; }
+    public DateTimeOffset Created { get; set; }
+    public DateTimeOffset Modified { get; set; }
 
     public Guid? UserId { get; set; }
     public UserEntity User

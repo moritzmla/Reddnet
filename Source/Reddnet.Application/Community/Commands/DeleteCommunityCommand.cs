@@ -13,12 +13,12 @@ public record DeleteCommunityCommand : IRequest<Result>
 internal class DeleteSubredditHandler : IRequestHandler<DeleteCommunityCommand, Result>
 {
     private readonly IDataContext context;
-    private readonly IUser userAccessor;
+    private readonly IUser user;
 
-    public DeleteSubredditHandler(IDataContext context, IUser userAccessor)
+    public DeleteSubredditHandler(IDataContext context, IUser user)
     {
         this.context = context;
-        this.userAccessor = userAccessor;
+        this.user = user;
     }
 
     public async Task<Result> Handle(DeleteCommunityCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ internal class DeleteSubredditHandler : IRequestHandler<DeleteCommunityCommand, 
         var community = await this.context.Communities
             .FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
 
-        if (community is null || (userAccessor.IsAuthenticated && community.UserId != userAccessor.Id))
+        if (community is null || (user.IsAuthenticated && community.UserId != user.Id))
         {
             return Result.Failed("Not found");
         }

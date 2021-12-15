@@ -8,7 +8,6 @@ namespace Reddnet.Application.Post.Commands;
 public record CreatePostCommand : IRequest<Result<PostEntity>>
 {
     public Guid CommunityId { get; init; }
-    public Guid UserId { get; init; }
     public string Title { get; init; }
     public string Content { get; init; }
     public byte[] Image { get; init; }
@@ -23,11 +22,10 @@ internal class CreatePostHandler : IRequestHandler<CreatePostCommand, Result<Pos
 
     public async Task<Result<PostEntity>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
-        var post = this.context.Posts.Add(new PostEntity
+        var post = this.context.Posts.Add(new()
         {
             Id = Guid.NewGuid(),
             CommunityId = request.CommunityId,
-            UserId = request.UserId,
             Title = request.Title,
             Content = request.Content,
             Image = request.Image

@@ -13,12 +13,12 @@ public record DeletePostCommand : IRequest<Result>
 internal class DeletePostHandler : IRequestHandler<DeletePostCommand, Result>
 {
     private readonly IDataContext context;
-    private readonly IUser userAccessor;
+    private readonly IUser user;
 
-    public DeletePostHandler(IDataContext context, IUser userAccessor)
+    public DeletePostHandler(IDataContext context, IUser user)
     {
         this.context = context;
-        this.userAccessor = userAccessor;
+        this.user = user;
     }
 
     public async Task<Result> Handle(DeletePostCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ internal class DeletePostHandler : IRequestHandler<DeletePostCommand, Result>
         var post = await this.context.Posts
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-        if (post is null || (userAccessor.IsAuthenticated && post.UserId != userAccessor.Id))
+        if (post is null || (user.IsAuthenticated && post.UserId != user.Id))
         {
             return Result.Failed("Not found");
         }

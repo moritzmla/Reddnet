@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Reddnet.Domain.Interfaces;
 
 namespace Reddnet.Domain.Entities;
 
-public record CommunityEntity : Entity
+public record CommunityEntity : Entity, IUserEntity, IAuditEntity
 {
     private UserEntity _user;
     private ICollection<PostEntity> _posts;
@@ -17,6 +18,8 @@ public record CommunityEntity : Entity
     public string Name { get; set; }
     public string Description { get; set; }
     public byte[] Image { get; set; }
+    public DateTimeOffset Created { get; set; }
+    public DateTimeOffset Modified { get; set; }
 
     public Guid? UserId { get; set; }
     public UserEntity User

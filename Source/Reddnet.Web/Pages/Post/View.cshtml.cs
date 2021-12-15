@@ -41,7 +41,6 @@ public class ViewModel : PageModel
             var response = await this.mediator.Send(new CreateReplyCommand
             {
                 PostId = this.Post.Id,
-                UserId = User.GetUserId(),
                 Content = this.Text
             });
 

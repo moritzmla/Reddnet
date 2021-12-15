@@ -26,6 +26,6 @@ public class DeleteModel : PageModel
             return Redirect(RouteConstants.Error);
         }
 
-        return Redirect(Request.Headers["Referer"].ToString());
+        return Redirect(RouteConstants.Index);
     }
 }

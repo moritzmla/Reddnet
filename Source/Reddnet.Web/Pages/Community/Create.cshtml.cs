@@ -23,7 +23,6 @@ public class CreateModel : PageModel
         {
             var response = await this.mediator.Send(new CreateCommunityCommand
             {
-                UserId = User.GetUserId(),
                 Name = this.Name,
                 Description = this.Description,
                 Image = await this.Image.GetBytes()

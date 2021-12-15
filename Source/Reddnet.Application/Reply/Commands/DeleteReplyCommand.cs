@@ -13,12 +13,12 @@ public record DeleteReplyCommand : IRequest<Result>
 internal class DeleteReplyHandler : IRequestHandler<DeleteReplyCommand, Result>
 {
     private readonly IDataContext context;
-    private readonly IUser userAccessor;
+    private readonly IUser user;
 
-    public DeleteReplyHandler(IDataContext context, IUser userAccessor)
+    public DeleteReplyHandler(IDataContext context, IUser user)
     {
         this.context = context;
-        this.userAccessor = userAccessor;
+        this.user = user;
     }
 
     public async Task<Result> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ internal class DeleteReplyHandler : IRequestHandler<DeleteReplyCommand, Result>
         var reply = await this.context.Replies
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-        if (reply is null || (userAccessor.IsAuthenticated && reply.UserId != userAccessor.Id))
+        if (reply is null || (user.IsAuthenticated && reply.UserId != user.Id))
         {
             return Result.Failed("Not found");
         }

@@ -18,12 +18,12 @@ public record UpdatePostCommand : IRequest<Result<Guid>>
 internal class UpdatePostHandler : IRequestHandler<UpdatePostCommand, Result<Guid>>
 {
     private readonly IDataContext context;
-    private readonly IUser userAccessor;
+    private readonly IUser user;
 
-    public UpdatePostHandler(IDataContext context, IUser userAccessor)
+    public UpdatePostHandler(IDataContext context, IUser user)
     {
         this.context = context;
-        this.userAccessor = userAccessor;
+        this.user = user;
     }
 
     public async Task<Result<Guid>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ internal class UpdatePostHandler : IRequestHandler<UpdatePostCommand, Result<Gui
         var post = await this.context.Posts
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-        if (post == null || (userAccessor.IsAuthenticated && post.UserId != userAccessor.Id))
+        if (post == null || (user.IsAuthenticated && post.UserId != user.Id))
         {
             return Result<Guid>.Failed("Not found");
         }

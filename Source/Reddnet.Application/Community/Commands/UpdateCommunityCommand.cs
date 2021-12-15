@@ -17,12 +17,12 @@ public record UpdateCommunityCommand : IRequest<Result<string>>
 internal class UpdateSubredditHandler : IRequestHandler<UpdateCommunityCommand, Result<string>>
 {
     private readonly IDataContext context;
-    private readonly IUser userAccessor;
+    private readonly IUser user;
 
-    public UpdateSubredditHandler(IDataContext context, IUser userAccessor)
+    public UpdateSubredditHandler(IDataContext context, IUser user)
     {
         this.context = context;
-        this.userAccessor = userAccessor;
+        this.user = user;
     }
 
     public async Task<Result<string>> Handle(UpdateCommunityCommand request, CancellationToken cancellationToken)
@@ -30,7 +30,7 @@ internal class UpdateSubredditHandler : IRequestHandler<UpdateCommunityCommand, 
         var community = await this.context.Communities
             .FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
 
-        if (community == null || (userAccessor.IsAuthenticated && community.UserId != userAccessor.Id))
+        if (community == null || (user.IsAuthenticated && community.UserId != user.Id))
         {
             return Result<string>.Failed("Not found");
         }

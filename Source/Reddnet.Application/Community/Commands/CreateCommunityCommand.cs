@@ -7,7 +7,6 @@ namespace Reddnet.Application.Community.Commands;
 
 public record CreateCommunityCommand : IRequest<Result<CommunityEntity>>
 {
-    public Guid UserId { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
     public byte[] Image { get; init; }
@@ -22,10 +21,9 @@ internal class CreateSubredditHandler : IRequestHandler<CreateCommunityCommand, 
 
     public async Task<Result<CommunityEntity>> Handle(CreateCommunityCommand request, CancellationToken cancellationToken)
     {
-        var community = this.context.Communities.Add(new CommunityEntity
+        var community = this.context.Communities.Add(new()
         {
             Id = Guid.NewGuid(),
-            UserId = request.UserId,
             Name = request.Name,
             Description = request.Description,
             Image = request.Image

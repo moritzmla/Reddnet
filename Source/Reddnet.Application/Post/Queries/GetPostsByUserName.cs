@@ -21,8 +21,8 @@ internal class GetPostsByUserNameHandler : IRequestHandler<GetPostsByUserName, R
     public async Task<Result<IEnumerable<PostEntity>>> Handle(GetPostsByUserName request, CancellationToken cancellationToken)
     {
         var posts = await this.context.Posts
-                       .Where(x => x.User.UserName == request.UserName)
-                       .ToListAsync(cancellationToken);
+            .Where(x => x.User.UserName == request.UserName)
+            .ToListAsync(cancellationToken);
 
         return Result<IEnumerable<PostEntity>>.Ok(posts);
     }
